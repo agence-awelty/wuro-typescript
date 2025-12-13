@@ -1,4 +1,4 @@
-configured_endpoints: 148
+configured_endpoints: 140
 openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/awelty%2Fwuro-834be7c82648451187568dcc3088f4f87b805aaaed9fabc076120ada2a73ab4b.yml
 openapi_spec_hash: d5a3056e6f6a1bc5751a3f580f316f9e
-config_hash: 8532f13ea101598802ad76f4a24ebef2
+config_hash: 59c33d0eae0b28118ec846787b3e716f

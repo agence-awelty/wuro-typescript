@@ -30,9 +30,9 @@ const client = new Wuro({
   apiKey: process.env['WURO_API_KEY'], // This is the default and can be omitted
 });
 
-const response = await client.auth.login({ email: 'dev@stainless.com', password: 'password' });
+const invoice = await client.invoices.create();
 
-console.log(response.token);
+console.log(invoice.newInvoice);
 ```
 
 ### Request & Response types
@@ -48,8 +48,7 @@ const client = new Wuro({
   apiKey: process.env['WURO_API_KEY'], // This is the default and can be omitted
 });
 
-const params: Wuro.AuthLoginParams = { email: 'dev@stainless.com', password: 'password' };
-const response: Wuro.AuthLoginResponse = await client.auth.login(params);
+const invoice: Wuro.InvoiceCreateResponse = await client.invoices.create();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -91,17 +90,15 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const response = await client.auth
-  .login({ email: 'dev@stainless.com', password: 'password' })
-  .catch(async (err) => {
-    if (err instanceof Wuro.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
+const invoice = await client.invoices.create().catch(async (err) => {
+  if (err instanceof Wuro.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
 Error codes are as follows:
@@ -134,7 +131,7 @@ const client = new Wuro({
 });
 
 // Or, configure per-request:
-await client.auth.login({ email: 'dev@stainless.com', password: 'password' }, {
+await client.invoices.create({
   maxRetries: 5,
 });
 ```
@@ -152,7 +149,7 @@ const client = new Wuro({
 });
 
 // Override per-request:
-await client.auth.login({ email: 'dev@stainless.com', password: 'password' }, {
+await client.invoices.create({
   timeout: 5 * 1000,
 });
 ```
@@ -175,15 +172,13 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Wuro();
 
-const response = await client.auth.login({ email: 'dev@stainless.com', password: 'password' }).asResponse();
+const response = await client.invoices.create().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.auth
-  .login({ email: 'dev@stainless.com', password: 'password' })
-  .withResponse();
+const { data: invoice, response: raw } = await client.invoices.create().withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(response.token);
+console.log(invoice.newInvoice);
 ```
 
 ### Logging
@@ -263,7 +258,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.auth.login({
+client.invoices.create({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',

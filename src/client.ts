@@ -148,17 +148,6 @@ import {
   Users,
 } from './resources/users';
 import {
-  Auth,
-  AuthLoginParams,
-  AuthLoginResponse,
-  AuthLoginWithGoogleParams,
-  AuthLoginWithGoogleResponse,
-  AuthLoginWithLinkedinParams,
-  AuthLoginWithLinkedinResponse,
-  AuthSelectCompanyParams,
-  AuthSelectCompanyResponse,
-} from './resources/auth/auth';
-import {
   Companies,
   Company,
   CompanyConfirmDomainResponse,
@@ -945,7 +934,6 @@ export class Wuro {
 
   static toFile = Uploads.toFile;
 
-  auth: API.Auth = new API.Auth(this);
   invoiceFile: API.InvoiceFile = new API.InvoiceFile(this);
   payboxPaiementDone: API.PayboxPaiementDone = new API.PayboxPaiementDone(this);
   paybox: API.Paybox = new API.Paybox(this);
@@ -972,7 +960,6 @@ export class Wuro {
   users: API.Users = new API.Users(this);
 }
 
-Wuro.Auth = Auth;
 Wuro.InvoiceFile = InvoiceFile;
 Wuro.PayboxPaiementDone = PayboxPaiementDone;
 Wuro.Paybox = Paybox;
@@ -1000,18 +987,6 @@ Wuro.Users = Users;
 
 export declare namespace Wuro {
   export type RequestOptions = Opts.RequestOptions;
-
-  export {
-    Auth as Auth,
-    type AuthLoginResponse as AuthLoginResponse,
-    type AuthLoginWithGoogleResponse as AuthLoginWithGoogleResponse,
-    type AuthLoginWithLinkedinResponse as AuthLoginWithLinkedinResponse,
-    type AuthSelectCompanyResponse as AuthSelectCompanyResponse,
-    type AuthLoginParams as AuthLoginParams,
-    type AuthLoginWithGoogleParams as AuthLoginWithGoogleParams,
-    type AuthLoginWithLinkedinParams as AuthLoginWithLinkedinParams,
-    type AuthSelectCompanyParams as AuthSelectCompanyParams,
-  };
 
   export {
     InvoiceFile as InvoiceFile,
