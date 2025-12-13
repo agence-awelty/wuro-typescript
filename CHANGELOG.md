@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 (2025-12-13)
+
+Full Changelog: [v1.0.0...v1.1.0](https://github.com/agence-awelty/wuro-typescript/compare/v1.0.0...v1.1.0)
+
+### Features
+
+* **api:** manual updates ([9f3bc60](https://github.com/agence-awelty/wuro-typescript/commit/9f3bc60f2d867844d4b8440449371589f09e22b1))
+
 ## 1.0.0 (2025-12-13)
 
 Full Changelog: [v0.0.1...v1.0.0](https://github.com/agence-awelty/wuro-typescript/compare/v0.0.1...v1.0.0)
