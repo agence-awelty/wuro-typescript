@@ -346,13 +346,13 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['WURO_BASE_URL'] = ''; // empty
       const client = new Wuro({ apiKey: 'My API Key', privateKey: 'My Private Key' });
-      expect(client.baseURL).toEqual('/v2');
+      expect(client.baseURL).toEqual('https://wuro.pro/api/v3.2');
     });
 
     test('blank env variable', () => {
       process.env['WURO_BASE_URL'] = '  '; // blank
       const client = new Wuro({ apiKey: 'My API Key', privateKey: 'My Private Key' });
-      expect(client.baseURL).toEqual('/v2');
+      expect(client.baseURL).toEqual('https://wuro.pro/api/v3.2');
     });
 
     test('in request options', () => {
