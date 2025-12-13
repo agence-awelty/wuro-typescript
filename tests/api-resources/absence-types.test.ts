@@ -2,7 +2,11 @@
 
 import Wuro from 'wuro';
 
-const client = new Wuro({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
+const client = new Wuro({
+  apiKey: 'My API Key',
+  privateKey: 'My Private Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource absenceTypes', () => {
   // Prism tests are disabled
