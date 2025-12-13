@@ -264,6 +264,16 @@ import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
   /**
+   * Defaults to process.env['WURO_API_KEY'].
+   */
+  apiKey?: string | undefined;
+
+  /**
+   * Defaults to process.env['WURO_PRIVATE_KEY'].
+   */
+  privateKey?: string | undefined;
+
+  /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
    * Defaults to process.env['WURO_BASE_URL'].
@@ -336,6 +346,9 @@ export interface ClientOptions {
  * API Client for interfacing with the Wuro API.
  */
 export class Wuro {
+  apiKey: string;
+  privateKey: string;
+
   baseURL: string;
   maxRetries: number;
   timeout: number;
@@ -351,6 +364,8 @@ export class Wuro {
   /**
    * API Client for interfacing with the Wuro API.
    *
+   * @param {string | undefined} [opts.apiKey=process.env['WURO_API_KEY'] ?? undefined]
+   * @param {string | undefined} [opts.privateKey=process.env['WURO_PRIVATE_KEY'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['WURO_BASE_URL'] ?? /v2] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -359,8 +374,26 @@ export class Wuro {
    * @param {HeadersLike} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
-  constructor({ baseURL = readEnv('WURO_BASE_URL'), ...opts }: ClientOptions = {}) {
+  constructor({
+    baseURL = readEnv('WURO_BASE_URL'),
+    apiKey = readEnv('WURO_API_KEY'),
+    privateKey = readEnv('WURO_PRIVATE_KEY'),
+    ...opts
+  }: ClientOptions = {}) {
+    if (apiKey === undefined) {
+      throw new Errors.WuroError(
+        "The WURO_API_KEY environment variable is missing or empty; either provide it, or instantiate the Wuro client with an apiKey option, like new Wuro({ apiKey: 'My API Key' }).",
+      );
+    }
+    if (privateKey === undefined) {
+      throw new Errors.WuroError(
+        "The WURO_PRIVATE_KEY environment variable is missing or empty; either provide it, or instantiate the Wuro client with an privateKey option, like new Wuro({ privateKey: 'My Private Key' }).",
+      );
+    }
+
     const options: ClientOptions = {
+      apiKey,
+      privateKey,
       ...opts,
       baseURL: baseURL || `/v2`,
     };
@@ -381,6 +414,9 @@ export class Wuro {
     this.#encoder = Opts.FallbackEncoder;
 
     this._options = options;
+
+    this.apiKey = apiKey;
+    this.privateKey = privateKey;
   }
 
   /**
@@ -396,6 +432,8 @@ export class Wuro {
       logLevel: this.logLevel,
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
+      apiKey: this.apiKey,
+      privateKey: this.privateKey,
       ...options,
     });
     return client;
