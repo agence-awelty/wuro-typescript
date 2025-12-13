@@ -402,13 +402,8 @@ Methods:
 - <code title="post /product/{uid}/variant">client.products.variant.<a href="./src/resources/products/variant.ts">create</a>(uid, { ...params }) -> void</code>
 - <code title="get /product/{productId}/variant/{uid}">client.products.variant.<a href="./src/resources/products/variant.ts">retrieve</a>(uid, { ...params }) -> void</code>
 - <code title="patch /product/{productId}/variant/{uid}">client.products.variant.<a href="./src/resources/products/variant.ts">update</a>(uid, { ...params }) -> void</code>
+- <code title="get /product-variants">client.products.variant.<a href="./src/resources/products/variant.ts">list</a>() -> void</code>
 - <code title="delete /product/{productId}/variant/{uid}">client.products.variant.<a href="./src/resources/products/variant.ts">delete</a>(uid, { ...params }) -> void</code>
-
-# ProductVariants
-
-Methods:
-
-- <code title="get /product-variants">client.productVariants.<a href="./src/resources/product-variants.ts">list</a>() -> void</code>
 
 # ProductCategories
 
@@ -458,8 +453,8 @@ Types:
 
 Methods:
 
-- <code title="post /purchase-category">client.purchaseCategories.<a href="./src/resources/purchase-categories.ts">create</a>({ ...params }) -> unknown</code>
-- <code title="get /purchase-category/{uid}">client.purchaseCategories.<a href="./src/resources/purchase-categories.ts">retrieve</a>(uid) -> unknown</code>
+- <code title="post /purchase-category">client.purchaseCategories.<a href="./src/resources/purchase-categories.ts">create</a>({ ...params }) -> PurchaseCategoryCreateResponse</code>
+- <code title="get /purchase-category/{uid}">client.purchaseCategories.<a href="./src/resources/purchase-categories.ts">retrieve</a>(uid) -> PurchaseCategoryRetrieveResponse</code>
 - <code title="patch /purchase-category/{uid}">client.purchaseCategories.<a href="./src/resources/purchase-categories.ts">update</a>(uid, { ...params }) -> void</code>
 - <code title="get /purchase-categories">client.purchaseCategories.<a href="./src/resources/purchase-categories.ts">list</a>() -> PurchaseCategoryListResponse</code>
 - <code title="delete /purchase-category/{uid}">client.purchaseCategories.<a href="./src/resources/purchase-categories.ts">delete</a>(uid) -> void</code>
