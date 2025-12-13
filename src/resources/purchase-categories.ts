@@ -23,14 +23,17 @@ export class PurchaseCategories extends APIResource {
    *
    * **Événement déclenché:** CREATE_PURCHASE_CATEGORY
    */
-  create(body: PurchaseCategoryCreateParams, options?: RequestOptions): APIPromise<unknown> {
+  create(
+    body: PurchaseCategoryCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<PurchaseCategoryCreateResponse> {
     return this._client.post('/purchase-category', { body, ...options });
   }
 
   /**
    * Récupère les détails d'une catégorie d'achat spécifique.
    */
-  retrieve(uid: string, options?: RequestOptions): APIPromise<unknown> {
+  retrieve(uid: string, options?: RequestOptions): APIPromise<PurchaseCategoryRetrieveResponse> {
     return this._client.get(path`/purchase-category/${uid}`, options);
   }
 
@@ -84,9 +87,33 @@ export class PurchaseCategories extends APIResource {
   }
 }
 
-export type PurchaseCategoryCreateResponse = unknown;
+export interface PurchaseCategoryCreateResponse {
+  _id?: string;
 
-export type PurchaseCategoryRetrieveResponse = unknown;
+  company?: string;
+
+  createdAt?: string;
+
+  name?: string;
+
+  state?: 'active' | 'inactive';
+
+  updatedAt?: string;
+}
+
+export interface PurchaseCategoryRetrieveResponse {
+  _id?: string;
+
+  company?: string;
+
+  createdAt?: string;
+
+  name?: string;
+
+  state?: 'active' | 'inactive';
+
+  updatedAt?: string;
+}
 
 export interface PurchaseCategoryListResponse {
   /**
@@ -94,7 +121,23 @@ export interface PurchaseCategoryListResponse {
    */
   count?: number;
 
-  data?: Array<unknown>;
+  data?: Array<PurchaseCategoryListResponse.Data>;
+}
+
+export namespace PurchaseCategoryListResponse {
+  export interface Data {
+    _id?: string;
+
+    company?: string;
+
+    createdAt?: string;
+
+    name?: string;
+
+    state?: 'active' | 'inactive';
+
+    updatedAt?: string;
+  }
 }
 
 export interface PurchaseCategoryCreateParams {

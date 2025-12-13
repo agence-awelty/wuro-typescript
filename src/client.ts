@@ -101,7 +101,6 @@ import {
   ProductCategoryUpdateParams,
 } from './resources/product-categories';
 import { ProductUnitListResponse, ProductUnits } from './resources/product-units';
-import { ProductVariants } from './resources/product-variants';
 import {
   PurchaseCategories,
   PurchaseCategoryCreateParams,
@@ -953,7 +952,6 @@ export class Wuro {
   companies: API.Companies = new API.Companies(this);
   clients: API.Clients = new API.Clients(this);
   products: API.Products = new API.Products(this);
-  productVariants: API.ProductVariants = new API.ProductVariants(this);
   productCategories: API.ProductCategories = new API.ProductCategories(this);
   purchases: API.Purchases = new API.Purchases(this);
   purchaseCategories: API.PurchaseCategories = new API.PurchaseCategories(this);
@@ -979,7 +977,6 @@ Wuro.Absences = Absences;
 Wuro.Companies = Companies;
 Wuro.Clients = Clients;
 Wuro.Products = Products;
-Wuro.ProductVariants = ProductVariants;
 Wuro.ProductCategories = ProductCategories;
 Wuro.Purchases = Purchases;
 Wuro.PurchaseCategories = PurchaseCategories;
@@ -1190,8 +1187,6 @@ export declare namespace Wuro {
     type ProductListParams as ProductListParams,
     type ProductImportFromCsvParams as ProductImportFromCsvParams,
   };
-
-  export { ProductVariants as ProductVariants };
 
   export {
     ProductCategories as ProductCategories,

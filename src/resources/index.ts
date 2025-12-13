@@ -132,7 +132,6 @@ export {
   type ProductCategoryUpdateParams,
 } from './product-categories';
 export { ProductUnits, type ProductUnitListResponse } from './product-units';
-export { ProductVariants } from './product-variants';
 export {
   Products,
   type Product,
