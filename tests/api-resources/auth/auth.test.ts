@@ -10,18 +10,6 @@ const client = new Wuro({
 
 describe('resource auth', () => {
   // Prism tests are disabled
-  test.skip('authenticate', async () => {
-    const responsePromise = client.auth.authenticate();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
   test.skip('login: only required params', async () => {
     const responsePromise = client.auth.login({ email: 'dev@stainless.com', password: 'password' });
     const rawResponse = await responsePromise.asResponse();

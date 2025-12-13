@@ -2,7 +2,6 @@
 
 Types:
 
-- <code><a href="./src/resources/auth/auth.ts">AuthAuthenticateResponse</a></code>
 - <code><a href="./src/resources/auth/auth.ts">AuthLoginResponse</a></code>
 - <code><a href="./src/resources/auth/auth.ts">AuthLoginWithGoogleResponse</a></code>
 - <code><a href="./src/resources/auth/auth.ts">AuthLoginWithLinkedinResponse</a></code>
@@ -10,7 +9,6 @@ Types:
 
 Methods:
 
-- <code title="post /auth">client.auth.<a href="./src/resources/auth/auth.ts">authenticate</a>() -> AuthAuthenticateResponse</code>
 - <code title="post /auth/login">client.auth.<a href="./src/resources/auth/auth.ts">login</a>({ ...params }) -> AuthLoginResponse</code>
 - <code title="post /auth/google">client.auth.<a href="./src/resources/auth/auth.ts">loginWithGoogle</a>({ ...params }) -> AuthLoginWithGoogleResponse</code>
 - <code title="post /auth/linkedin">client.auth.<a href="./src/resources/auth/auth.ts">loginWithLinkedin</a>({ ...params }) -> AuthLoginWithLinkedinResponse</code>

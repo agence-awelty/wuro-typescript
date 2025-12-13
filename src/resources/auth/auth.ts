@@ -14,29 +14,6 @@ export class Auth extends APIResource {
   password: PasswordAPI.Password = new PasswordAPI.Password(this._client);
 
   /**
-   * Génère un token JWT pour authentifier les requêtes API.
-   *
-   * **Authentification requise:**
-   *
-   * - Cette route utilise l'authentification par clé API (ApiKeyAuth)
-   * - Les headers `X-ApiKey`, `X-Datetime` et `X-Signature` sont requis
-   *
-   * **Utilisation du token:**
-   *
-   * - Le token JWT retourné peut être utilisé dans le header
-   *   `Authorization: Bearer <token>`
-   * - Le token a une durée de validité limitée
-   *
-   * **Cas d'usage:**
-   *
-   * - Authentification pour les opérations sensibles
-   * - Sessions de longue durée sans renvoyer les clés API
-   */
-  authenticate(options?: RequestOptions): APIPromise<AuthAuthenticateResponse> {
-    return this._client.post('/auth', options);
-  }
-
-  /**
    * Authentifie un utilisateur avec son email et mot de passe.
    *
    * ## Token JWT
@@ -123,13 +100,6 @@ export class Auth extends APIResource {
   }
 }
 
-export interface AuthAuthenticateResponse {
-  /**
-   * Token JWT à utiliser pour les requêtes authentifiées
-   */
-  token?: string;
-}
-
 export interface AuthLoginResponse {
   /**
    * Token JWT d'authentification
@@ -202,7 +172,6 @@ Auth.Password = Password;
 
 export declare namespace Auth {
   export {
-    type AuthAuthenticateResponse as AuthAuthenticateResponse,
     type AuthLoginResponse as AuthLoginResponse,
     type AuthLoginWithGoogleResponse as AuthLoginWithGoogleResponse,
     type AuthLoginWithLinkedinResponse as AuthLoginWithLinkedinResponse,

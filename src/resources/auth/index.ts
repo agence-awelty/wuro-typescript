@@ -2,7 +2,6 @@
 
 export {
   Auth,
-  type AuthAuthenticateResponse,
   type AuthLoginResponse,
   type AuthLoginWithGoogleResponse,
   type AuthLoginWithLinkedinResponse,

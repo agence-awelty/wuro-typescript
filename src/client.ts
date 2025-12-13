@@ -149,7 +149,6 @@ import {
 } from './resources/users';
 import {
   Auth,
-  AuthAuthenticateResponse,
   AuthLoginParams,
   AuthLoginResponse,
   AuthLoginWithGoogleParams,
@@ -1004,7 +1003,6 @@ export declare namespace Wuro {
 
   export {
     Auth as Auth,
-    type AuthAuthenticateResponse as AuthAuthenticateResponse,
     type AuthLoginResponse as AuthLoginResponse,
     type AuthLoginWithGoogleResponse as AuthLoginWithGoogleResponse,
     type AuthLoginWithLinkedinResponse as AuthLoginWithLinkedinResponse,
