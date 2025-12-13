@@ -486,31 +486,6 @@ export class Wuro {
     return;
   }
 
-  protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
-    return buildHeaders([
-      await this.apiKeyAuth(opts),
-      await this.signatureAuth(opts),
-      await this.datetimeAuth(opts),
-      await this.bearerAuth(opts),
-    ]);
-  }
-
-  protected async apiKeyAuth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
-    return buildHeaders([{ 'X-ApiKey': this.apiKey }]);
-  }
-
-  protected async signatureAuth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
-    return buildHeaders([{ 'X-Signature': this.signature }]);
-  }
-
-  protected async datetimeAuth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
-    return buildHeaders([{ 'X-Datetime': this.requestDatetime }]);
-  }
-
-  protected async bearerAuth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
-    return buildHeaders([{ Authorization: `Bearer ${this.bearerToken}` }]);
-  }
-
   protected stringifyQuery(query: Record<string, unknown>): string {
     return qs.stringify(query, { arrayFormat: 'comma' });
   }
@@ -932,7 +907,6 @@ export class Wuro {
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
       },
-      await this.authHeaders(options),
       this._options.defaultHeaders,
       bodyHeaders,
       options.headers,
