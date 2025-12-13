@@ -353,7 +353,7 @@ export class Wuro {
    *
    * @param {string | undefined} [opts.apiKey=process.env['WURO_API_KEY'] ?? undefined]
    * @param {string | undefined} [opts.privateKey=process.env['WURO_PRIVATE_KEY'] ?? undefined]
-   * @param {string} [opts.baseURL=process.env['WURO_BASE_URL'] ?? /v2] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['WURO_BASE_URL'] ?? https://wuro.pro/api/v3.2] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -382,7 +382,7 @@ export class Wuro {
       apiKey,
       privateKey,
       ...opts,
-      baseURL: baseURL || `/v2`,
+      baseURL: baseURL || `https://wuro.pro/api/v3.2`,
     };
 
     this.baseURL = options.baseURL!;
@@ -430,7 +430,7 @@ export class Wuro {
    * Check whether the base URL is set to its default.
    */
   #baseURLOverridden(): boolean {
-    return this.baseURL !== '/v2';
+    return this.baseURL !== 'https://wuro.pro/api/v3.2';
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
