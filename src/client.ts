@@ -264,26 +264,6 @@ import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
   /**
-   * Clé d'API publique (utilisée avec X-Datetime et X-Signature)
-   */
-  apiKey?: string | undefined;
-
-  /**
-   * Signature HMAC SHA1 de la requête (METHOD + URI + X-Datetime) encodée en Base64
-   */
-  signature?: string | undefined;
-
-  /**
-   * Date de la requête au format ISO 8601 (expire après quelques minutes)
-   */
-  requestDatetime?: string | undefined;
-
-  /**
-   * Token JWT obtenu via POST /auth après authentification avec les clés API
-   */
-  bearerToken?: string | undefined;
-
-  /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
    * Defaults to process.env['WURO_BASE_URL'].
@@ -356,11 +336,6 @@ export interface ClientOptions {
  * API Client for interfacing with the Wuro API.
  */
 export class Wuro {
-  apiKey: string;
-  signature: string;
-  requestDatetime: string;
-  bearerToken: string;
-
   baseURL: string;
   maxRetries: number;
   timeout: number;
@@ -376,10 +351,6 @@ export class Wuro {
   /**
    * API Client for interfacing with the Wuro API.
    *
-   * @param {string | undefined} [opts.apiKey=process.env['WURO_API_KEY'] ?? undefined]
-   * @param {string | undefined} [opts.signature=process.env['WURO_SIGNATURE'] ?? undefined]
-   * @param {string | undefined} [opts.requestDatetime=process.env['WURO_REQUEST_DATETIME'] ?? undefined]
-   * @param {string | undefined} [opts.bearerToken=process.env['WURO_BEARER_TOKEN'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['WURO_BASE_URL'] ?? /v2] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -388,40 +359,8 @@ export class Wuro {
    * @param {HeadersLike} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
-  constructor({
-    baseURL = readEnv('WURO_BASE_URL'),
-    apiKey = readEnv('WURO_API_KEY'),
-    signature = readEnv('WURO_SIGNATURE'),
-    requestDatetime = readEnv('WURO_REQUEST_DATETIME'),
-    bearerToken = readEnv('WURO_BEARER_TOKEN'),
-    ...opts
-  }: ClientOptions = {}) {
-    if (apiKey === undefined) {
-      throw new Errors.WuroError(
-        "The WURO_API_KEY environment variable is missing or empty; either provide it, or instantiate the Wuro client with an apiKey option, like new Wuro({ apiKey: 'My API Key' }).",
-      );
-    }
-    if (signature === undefined) {
-      throw new Errors.WuroError(
-        "The WURO_SIGNATURE environment variable is missing or empty; either provide it, or instantiate the Wuro client with an signature option, like new Wuro({ signature: 'My Signature' }).",
-      );
-    }
-    if (requestDatetime === undefined) {
-      throw new Errors.WuroError(
-        "The WURO_REQUEST_DATETIME environment variable is missing or empty; either provide it, or instantiate the Wuro client with an requestDatetime option, like new Wuro({ requestDatetime: 'My Request Datetime' }).",
-      );
-    }
-    if (bearerToken === undefined) {
-      throw new Errors.WuroError(
-        "The WURO_BEARER_TOKEN environment variable is missing or empty; either provide it, or instantiate the Wuro client with an bearerToken option, like new Wuro({ bearerToken: 'My Bearer Token' }).",
-      );
-    }
-
+  constructor({ baseURL = readEnv('WURO_BASE_URL'), ...opts }: ClientOptions = {}) {
     const options: ClientOptions = {
-      apiKey,
-      signature,
-      requestDatetime,
-      bearerToken,
       ...opts,
       baseURL: baseURL || `/v2`,
     };
@@ -442,11 +381,6 @@ export class Wuro {
     this.#encoder = Opts.FallbackEncoder;
 
     this._options = options;
-
-    this.apiKey = apiKey;
-    this.signature = signature;
-    this.requestDatetime = requestDatetime;
-    this.bearerToken = bearerToken;
   }
 
   /**
@@ -462,10 +396,6 @@ export class Wuro {
       logLevel: this.logLevel,
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
-      apiKey: this.apiKey,
-      signature: this.signature,
-      requestDatetime: this.requestDatetime,
-      bearerToken: this.bearerToken,
       ...options,
     });
     return client;
