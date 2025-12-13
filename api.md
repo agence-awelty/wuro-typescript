@@ -1,33 +1,3 @@
-# Auth
-
-Types:
-
-- <code><a href="./src/resources/auth/auth.ts">AuthLoginResponse</a></code>
-- <code><a href="./src/resources/auth/auth.ts">AuthLoginWithGoogleResponse</a></code>
-- <code><a href="./src/resources/auth/auth.ts">AuthLoginWithLinkedinResponse</a></code>
-- <code><a href="./src/resources/auth/auth.ts">AuthSelectCompanyResponse</a></code>
-
-Methods:
-
-- <code title="post /auth/login">client.auth.<a href="./src/resources/auth/auth.ts">login</a>({ ...params }) -> AuthLoginResponse</code>
-- <code title="post /auth/google">client.auth.<a href="./src/resources/auth/auth.ts">loginWithGoogle</a>({ ...params }) -> AuthLoginWithGoogleResponse</code>
-- <code title="post /auth/linkedin">client.auth.<a href="./src/resources/auth/auth.ts">loginWithLinkedin</a>({ ...params }) -> AuthLoginWithLinkedinResponse</code>
-- <code title="post /auth/company">client.auth.<a href="./src/resources/auth/auth.ts">selectCompany</a>({ ...params }) -> AuthSelectCompanyResponse</code>
-
-## Register
-
-Methods:
-
-- <code title="post /auth/register">client.auth.register.<a href="./src/resources/auth/register.ts">create</a>({ ...params }) -> void</code>
-- <code title="patch /auth/register/confirm">client.auth.register.<a href="./src/resources/auth/register.ts">confirm</a>({ ...params }) -> void</code>
-
-## Password
-
-Methods:
-
-- <code title="patch /auth/password/confirm">client.auth.password.<a href="./src/resources/auth/password.ts">confirmReset</a>({ ...params }) -> void</code>
-- <code title="post /auth/password/reset">client.auth.password.<a href="./src/resources/auth/password.ts">requestReset</a>({ ...params }) -> void</code>
-
 # InvoiceFile
 
 Types:

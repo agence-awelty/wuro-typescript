@@ -26,17 +26,6 @@ export {
   type AbsenceListParams,
 } from './absences';
 export {
-  Auth,
-  type AuthLoginResponse,
-  type AuthLoginWithGoogleResponse,
-  type AuthLoginWithLinkedinResponse,
-  type AuthSelectCompanyResponse,
-  type AuthLoginParams,
-  type AuthLoginWithGoogleParams,
-  type AuthLoginWithLinkedinParams,
-  type AuthSelectCompanyParams,
-} from './auth/auth';
-export {
   Clients,
   type Client,
   type ClientInput,
