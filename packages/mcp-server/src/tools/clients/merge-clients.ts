@@ -1,0 +1,57 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+import { isJqError, maybeFilter } from 'wuro-mcp/filtering';
+import { Metadata, asErrorResult, asTextContentResult } from 'wuro-mcp/tools/types';
+
+import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import Wuro from 'wuro';
+
+export const metadata: Metadata = {
+  resource: 'clients',
+  operation: 'write',
+  tags: [],
+  httpMethod: 'post',
+  httpPath: '/clients/merge',
+  operationId: 'mergeClients',
+};
+
+export const tool: Tool = {
+  name: 'merge_clients',
+  description:
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nFusionne deux fiches clients en une seule.\n\n**Fonctionnement:**\n- Le client `source` est fusionné dans le client `target`\n- Toutes les factures, devis et documents du client source sont transférés au client cible\n- Le client source est supprimé après la fusion\n\n**Transfert des données:**\n- Factures et devis\n- Historique des paiements\n- Notes et commentaires\n- Interlocuteurs\n\n**Attention:**\n- Cette opération est irréversible\n- Les informations du client source qui diffèrent ne sont pas copiées (seuls les documents sont transférés)\n\n**Événement déclenché:** MERGE_CLIENT\n\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/client_merge_response',\n  $defs: {\n    client_merge_response: {\n      type: 'object',\n      properties: {\n        client: {\n          $ref: '#/$defs/client'\n        },\n        documentsTransferred: {\n          type: 'integer',\n          description: 'Nombre de documents transférés'\n        }\n      }\n    },\n    client: {\n      type: 'object',\n      properties: {\n        _id: {\n          type: 'string',\n          description: 'Unique identifier for the client'\n        },\n        address: {\n          type: 'string',\n          description: 'Street address'\n        },\n        address_complement: {\n          type: 'string',\n          description: 'Address complement'\n        },\n        address_end: {\n          type: 'string',\n          description: 'Additional address information'\n        },\n        analytical_code: {\n          type: 'string',\n          description: 'Analytical code'\n        },\n        avatar: {\n          type: 'object',\n          description: 'Client avatar image',\n          additionalProperties: true\n        },\n        category: {\n          type: 'string',\n          description: 'Client category'\n        },\n        city: {\n          type: 'string',\n          description: 'City'\n        },\n        client_code: {\n          type: 'string',\n          description: 'Client code for accounting'\n        },\n        client_contact: {\n          type: 'string',\n          description: 'Reference to main contact interlocutor'\n        },\n        company: {\n          type: 'string',\n          description: 'Reference to the company'\n        },\n        country: {\n          type: 'string',\n          description: 'Country'\n        },\n        createdAt: {\n          type: 'string',\n          format: 'date-time'\n        },\n        description: {\n          type: 'string',\n          description: 'Client description'\n        },\n        email: {\n          type: 'string',\n          description: 'Email of the client'\n        },\n        extraData: {\n          type: 'object',\n          description: 'Custom extra data',\n          additionalProperties: true\n        },\n        fax: {\n          type: 'string',\n          description: 'Fax number'\n        },\n        mainInterlocutor: {\n          type: 'string',\n          description: 'Reference to main interlocutor'\n        },\n        mobile: {\n          type: 'string',\n          description: 'Mobile phone number'\n        },\n        mobileFormat: {\n          type: 'string',\n          description: 'Formatted mobile number for search'\n        },\n        name: {\n          type: 'string',\n          description: 'Name of the client (required)'\n        },\n        nic: {\n          type: 'string',\n          description: 'NIC code'\n        },\n        notes: {\n          type: 'string',\n          description: 'Notes about the client'\n        },\n        phone: {\n          type: 'string',\n          description: 'Phone number'\n        },\n        phoneFormat: {\n          type: 'string',\n          description: 'Formatted phone number for search'\n        },\n        positionCreator: {\n          type: 'string',\n          description: 'Position that created this client'\n        },\n        positionLastUpdator: {\n          type: 'string',\n          description: 'Position that last updated this client'\n        },\n        positionsAssigned: {\n          type: 'array',\n          description: 'List of assigned positions',\n          items: {\n            type: 'string'\n          }\n        },\n        siren: {\n          type: 'string',\n          description: 'SIREN number'\n        },\n        state: {\n          type: 'string',\n          description: 'Client state',\n          enum: [            'active',\n            'inactive'\n          ]\n        },\n        stats: {\n          type: 'object',\n          properties: {\n            nbDeliveryReceipts: {\n              type: 'integer'\n            },\n            nbFiles: {\n              type: 'integer'\n            },\n            nbInvoices: {\n              type: 'integer'\n            },\n            nbNotes: {\n              type: 'integer'\n            },\n            nbPurchases: {\n              type: 'integer'\n            },\n            nbQuotes: {\n              type: 'integer'\n            },\n            nbReminders: {\n              type: 'integer'\n            }\n          }\n        },\n        tags: {\n          type: 'array',\n          description: 'List of tag references',\n          items: {\n            type: 'string'\n          }\n        },\n        tva_number: {\n          type: 'string',\n          description: 'VAT number'\n        },\n        updatedAt: {\n          type: 'string',\n          format: 'date-time'\n        },\n        website: {\n          type: 'string',\n          description: 'Website URL'\n        },\n        zip_code: {\n          type: 'string',\n          description: 'Zip code'\n        }\n      }\n    }\n  }\n}\n```",
+  inputSchema: {
+    type: 'object',
+    properties: {
+      source: {
+        type: 'string',
+        description: 'ID du client à fusionner (sera supprimé)',
+      },
+      target: {
+        type: 'string',
+        description: 'ID du client cible (recevra les documents)',
+      },
+      jq_filter: {
+        type: 'string',
+        title: 'jq Filter',
+        description:
+          'A jq filter to apply to the response to include certain fields. Consult the output schema in the tool description to see the fields that are available.\n\nFor example: to include only the `name` field in every object of a results array, you can provide ".results[].name".\n\nFor more information, see the [jq documentation](https://jqlang.org/manual/).',
+      },
+    },
+    required: ['source', 'target'],
+  },
+  annotations: {},
+};
+
+export const handler = async (client: Wuro, args: Record<string, unknown> | undefined) => {
+  const { jq_filter, ...body } = args as any;
+  try {
+    return asTextContentResult(await maybeFilter(jq_filter, await client.clients.merge(body)));
+  } catch (error) {
+    if (error instanceof Wuro.APIError || isJqError(error)) {
+      return asErrorResult(error.message);
+    }
+    throw error;
+  }
+};
+
+export default { metadata, tool, handler };
