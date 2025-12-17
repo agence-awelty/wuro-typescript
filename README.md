@@ -22,10 +22,7 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Wuro from 'wuro';
 
-const client = new Wuro({
-  privateKey: 'My Private Key',
-  apiKey: process.env['WURO_API_KEY'], // This is the default and can be omitted
-});
+const client = new Wuro();
 
 const invoice = await client.invoices.create();
 
@@ -40,10 +37,7 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Wuro from 'wuro';
 
-const client = new Wuro({
-  privateKey: 'My Private Key',
-  apiKey: process.env['WURO_API_KEY'], // This is the default and can be omitted
-});
+const client = new Wuro();
 
 const invoice: Wuro.InvoiceCreateResponse = await client.invoices.create();
 ```
@@ -123,7 +117,6 @@ You can use the `maxRetries` option to configure or disable this:
 ```js
 // Configure the default for all requests:
 const client = new Wuro({
-  privateKey: 'My Private Key',
   maxRetries: 0, // default is 2
 });
 
@@ -141,7 +134,6 @@ Requests time out after 1 minute by default. You can configure this with a `time
 ```ts
 // Configure the default for all requests:
 const client = new Wuro({
-  privateKey: 'My Private Key',
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 

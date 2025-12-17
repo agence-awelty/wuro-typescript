@@ -3,8 +3,7 @@
 import Wuro from 'wuro';
 
 const client = new Wuro({
-  apiKey: 'My API Key',
-  privateKey: 'My Private Key',
+  bearerToken: 'My Bearer Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 

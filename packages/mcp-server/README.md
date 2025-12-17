@@ -9,8 +9,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 You can run the MCP Server directly via `npx`:
 
 ```sh
-export WURO_API_KEY="My API Key"
-export WURO_PRIVATE_KEY="My Private Key"
+export WURO_BEARER_TOKEN="My Bearer Token"
 npx -y wuro-mcp@latest
 ```
 
@@ -28,8 +27,7 @@ For clients with a configuration JSON, it might look something like this:
       "command": "npx",
       "args": ["-y", "wuro-mcp", "--client=claude", "--tools=dynamic"],
       "env": {
-        "WURO_API_KEY": "My API Key",
-        "WURO_PRIVATE_KEY": "My Private Key"
+        "WURO_BEARER_TOKEN": "My Bearer Token"
       }
     }
   }
@@ -41,14 +39,14 @@ For clients with a configuration JSON, it might look something like this:
 If you use Cursor, you can install the MCP server by using the button below. You will need to set your environment variables
 in Cursor's `mcp.json`, which can be found in Cursor Settings > Tools & MCP > New MCP Server.
 
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=wuro-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInd1cm8tbWNwIl0sImVudiI6eyJXVVJPX0FQSV9LRVkiOiJTZXQgeW91ciBXVVJPX0FQSV9LRVkgaGVyZS4iLCJXVVJPX1BSSVZBVEVfS0VZIjoiU2V0IHlvdXIgV1VST19QUklWQVRFX0tFWSBoZXJlLiJ9fQ)
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=wuro-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInd1cm8tbWNwIl0sImVudiI6eyJXVVJPX0JFQVJFUl9UT0tFTiI6IlNldCB5b3VyIFdVUk9fQkVBUkVSX1RPS0VOIGhlcmUuIn19)
 
 ### VS Code
 
 If you use MCP, you can install the MCP server by clicking the link below. You will need to set your environment variables
 in VS Code's `mcp.json`, which can be found via Command Palette > MCP: Open User Configuration.
 
-[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22wuro-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22wuro-mcp%22%5D%2C%22env%22%3A%7B%22WURO_API_KEY%22%3A%22Set%20your%20WURO_API_KEY%20here.%22%2C%22WURO_PRIVATE_KEY%22%3A%22Set%20your%20WURO_PRIVATE_KEY%20here.%22%7D%7D)
+[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22wuro-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22wuro-mcp%22%5D%2C%22env%22%3A%7B%22WURO_BEARER_TOKEN%22%3A%22Set%20your%20WURO_BEARER_TOKEN%20here.%22%7D%7D)
 
 ### Claude Code
 
@@ -56,7 +54,7 @@ If you use Claude Code, you can install the MCP server by running the command be
 environment variables in Claude Code's `.claude.json`, which can be found in your home directory.
 
 ```
-claude mcp add --transport stdio wuro_api --env WURO_API_KEY="Your WURO_API_KEY here." WURO_PRIVATE_KEY="Your WURO_PRIVATE_KEY here." -- npx -y wuro-mcp
+claude mcp add --transport stdio wuro_api --env WURO_BEARER_TOKEN="Your WURO_BEARER_TOKEN here." -- npx -y wuro-mcp
 ```
 
 ## Exposing endpoints to your MCP Client
@@ -168,10 +166,12 @@ over time, you can manually enable or disable certain capabilities:
 
 Launching the client with `--transport=http` launches the server as a remote server using Streamable HTTP transport. The `--port` setting can choose the port it will run on, and the `--socket` setting allows it to run on a Unix socket.
 
-Authorization can be provided via the following headers:
+Authorization can be provided via the `Authorization` header using the Bearer scheme.
+
+Additionally, authorization can be provided via the following headers:
 | Header | Equivalent client option | Security scheme |
-| ---------- | ------------------------ | --------------- |
-| `X-ApiKey` | `apiKey` | HmacAuth |
+| --------------------- | ------------------------ | --------------- |
+| `x-wuro-bearer-token` | `bearerToken` | BearerAuth |
 
 A configuration JSON for this server might look like this, assuming the server is hosted at `http://localhost:3000`:
 
@@ -181,7 +181,7 @@ A configuration JSON for this server might look like this, assuming the server i
     "wuro_api": {
       "url": "http://localhost:3000",
       "headers": {
-        "X-ApiKey": "My API Key"
+        "Authorization": "Bearer <auth value>"
       }
     }
   }
@@ -1937,3 +1937,7 @@ The following tools are available in this MCP server.
   - Ou une adresse email
 
   L'API détecte automatiquement le format.
+
+### Resource `auth`:
+
+- `login_auth` (`write`):
