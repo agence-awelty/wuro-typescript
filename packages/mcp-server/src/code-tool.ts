@@ -35,10 +35,7 @@ export async function codeTool() {
       headers: {
         ...(stainlessAPIKey && { Authorization: stainlessAPIKey }),
         'Content-Type': 'application/json',
-        client_envs: JSON.stringify({
-          WURO_API_KEY: readEnv('WURO_API_KEY'),
-          WURO_PRIVATE_KEY: readEnv('WURO_PRIVATE_KEY'),
-        }),
+        client_envs: JSON.stringify({ WURO_BEARER_TOKEN: readEnv('WURO_BEARER_TOKEN') }),
       },
       body: JSON.stringify({
         project_name: 'wuro',

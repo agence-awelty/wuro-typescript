@@ -4,7 +4,22 @@ import { IncomingMessage } from 'node:http';
 import { ClientOptions } from 'wuro';
 
 export const parseAuthHeaders = (req: IncomingMessage): Partial<ClientOptions> => {
-  const apiKey =
-    Array.isArray(req.headers['x-apikey']) ? req.headers['x-apikey'][0] : req.headers['x-apikey'];
-  return { apiKey };
+  if (req.headers.authorization) {
+    const scheme = req.headers.authorization.split(' ')[0]!;
+    const value = req.headers.authorization.slice(scheme.length + 1);
+    switch (scheme) {
+      case 'Bearer':
+        return { bearerToken: req.headers.authorization.slice('Bearer '.length) };
+      default:
+        throw new Error(
+          'Unsupported authorization scheme. Expected the "Authorization" header to be a supported scheme (Bearer).',
+        );
+    }
+  }
+
+  const bearerToken =
+    Array.isArray(req.headers['x-wuro-bearer-token']) ?
+      req.headers['x-wuro-bearer-token'][0]
+    : req.headers['x-wuro-bearer-token'];
+  return { bearerToken };
 };

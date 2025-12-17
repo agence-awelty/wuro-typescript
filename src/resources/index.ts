@@ -25,6 +25,7 @@ export {
   type AbsenceUpdateParams,
   type AbsenceListParams,
 } from './absences';
+export { Auth, type AuthLoginResponse, type AuthLoginParams } from './auth';
 export {
   Clients,
   type Client,

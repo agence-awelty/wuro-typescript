@@ -18,22 +18,15 @@
       "command": "node",
       "args": ["${__dirname}/index.js"],
       "env": {
-        "WURO_API_KEY": "${user_config.WURO_API_KEY}",
-        "WURO_PRIVATE_KEY": "${user_config.WURO_PRIVATE_KEY}"
+        "WURO_BEARER_TOKEN": "${user_config.WURO_BEARER_TOKEN}"
       }
     }
   },
   "user_config": {
-    "WURO_API_KEY": {
-      "title": "api_key",
+    "WURO_BEARER_TOKEN": {
+      "title": "bearer_token",
       "description": "",
-      "required": true,
-      "type": "string"
-    },
-    "WURO_PRIVATE_KEY": {
-      "title": "private_key",
-      "description": "",
-      "required": true,
+      "required": false,
       "type": "string"
     }
   },

@@ -144,6 +144,7 @@ import list_invitations_users from './users/list-invitations-users';
 import list_notifications_users from './users/list-notifications-users';
 import list_positions_users from './users/list-positions-users';
 import retrieve_by_uid_users from './users/retrieve-by-uid-users';
+import login_auth from './auth/login-auth';
 
 export const endpoints: Endpoint[] = [];
 
@@ -291,6 +292,7 @@ addEndpoint(list_invitations_users);
 addEndpoint(list_notifications_users);
 addEndpoint(list_positions_users);
 addEndpoint(retrieve_by_uid_users);
+addEndpoint(login_auth);
 
 export type Filter = {
   type: 'resource' | 'operation' | 'tag' | 'tool';
