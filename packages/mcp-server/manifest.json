@@ -1,7 +1,7 @@
 {
   "dxt_version": "0.2",
   "name": "wuro-mcp",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "The official MCP Server for the Wuro API",
   "author": {
     "name": "Wuro"
