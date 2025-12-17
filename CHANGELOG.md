@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.2.0 (2025-12-17)
+
+Full Changelog: [v1.1.0...v1.2.0](https://github.com/agence-awelty/wuro-typescript/compare/v1.1.0...v1.2.0)
+
+### Features
+
+* **api:** manual updates ([a57431c](https://github.com/agence-awelty/wuro-typescript/commit/a57431c72374686a9fdabfa47b470a0978ccbfc4))
+
+
+### Chores
+
+* configure new SDK language ([4018e0b](https://github.com/agence-awelty/wuro-typescript/commit/4018e0bbf7120f5718249aff8b23fae12c5288c6))
+* **internal:** configure MCP Server hosting ([136a56a](https://github.com/agence-awelty/wuro-typescript/commit/136a56ac05c4ac38e6e38a86b8886a06f228cfea))
+
 ## 1.1.0 (2025-12-13)
 
 Full Changelog: [v1.0.0...v1.1.0](https://github.com/agence-awelty/wuro-typescript/compare/v1.0.0...v1.1.0)

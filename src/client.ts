@@ -42,6 +42,7 @@ import {
   AbsenceUpdateResponse,
   Absences,
 } from './resources/absences';
+import { Auth, AuthLoginParams, AuthLoginResponse } from './resources/auth';
 import {
   Client,
   ClientCreateParams,
@@ -251,14 +252,9 @@ import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['WURO_API_KEY'].
+   * Defaults to process.env['WURO_BEARER_TOKEN'].
    */
-  apiKey?: string | undefined;
-
-  /**
-   * Defaults to process.env['WURO_PRIVATE_KEY'].
-   */
-  privateKey?: string | undefined;
+  bearerToken?: string | null | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -333,8 +329,7 @@ export interface ClientOptions {
  * API Client for interfacing with the Wuro API.
  */
 export class Wuro {
-  apiKey: string;
-  privateKey: string;
+  bearerToken: string | null;
 
   baseURL: string;
   maxRetries: number;
@@ -351,8 +346,7 @@ export class Wuro {
   /**
    * API Client for interfacing with the Wuro API.
    *
-   * @param {string | undefined} [opts.apiKey=process.env['WURO_API_KEY'] ?? undefined]
-   * @param {string | undefined} [opts.privateKey=process.env['WURO_PRIVATE_KEY'] ?? undefined]
+   * @param {string | null | undefined} [opts.bearerToken=process.env['WURO_BEARER_TOKEN'] ?? null]
    * @param {string} [opts.baseURL=process.env['WURO_BASE_URL'] ?? https://wuro.pro/api/v3.2] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -363,24 +357,11 @@ export class Wuro {
    */
   constructor({
     baseURL = readEnv('WURO_BASE_URL'),
-    apiKey = readEnv('WURO_API_KEY'),
-    privateKey = readEnv('WURO_PRIVATE_KEY'),
+    bearerToken = readEnv('WURO_BEARER_TOKEN') ?? null,
     ...opts
   }: ClientOptions = {}) {
-    if (apiKey === undefined) {
-      throw new Errors.WuroError(
-        "The WURO_API_KEY environment variable is missing or empty; either provide it, or instantiate the Wuro client with an apiKey option, like new Wuro({ apiKey: 'My API Key' }).",
-      );
-    }
-    if (privateKey === undefined) {
-      throw new Errors.WuroError(
-        "The WURO_PRIVATE_KEY environment variable is missing or empty; either provide it, or instantiate the Wuro client with an privateKey option, like new Wuro({ privateKey: 'My Private Key' }).",
-      );
-    }
-
     const options: ClientOptions = {
-      apiKey,
-      privateKey,
+      bearerToken,
       ...opts,
       baseURL: baseURL || `https://wuro.pro/api/v3.2`,
     };
@@ -402,8 +383,7 @@ export class Wuro {
 
     this._options = options;
 
-    this.apiKey = apiKey;
-    this.privateKey = privateKey;
+    this.bearerToken = bearerToken;
   }
 
   /**
@@ -419,8 +399,7 @@ export class Wuro {
       logLevel: this.logLevel,
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
-      apiKey: this.apiKey,
-      privateKey: this.privateKey,
+      bearerToken: this.bearerToken,
       ...options,
     });
     return client;
@@ -438,11 +417,23 @@ export class Wuro {
   }
 
   protected validateHeaders({ values, nulls }: NullableHeaders) {
-    return;
+    if (this.bearerToken && values.get('authorization')) {
+      return;
+    }
+    if (nulls.has('authorization')) {
+      return;
+    }
+
+    throw new Error(
+      'Could not resolve authentication method. Expected the bearerToken to be set. Or for the "Authorization" headers to be explicitly omitted',
+    );
   }
 
   protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
-    return buildHeaders([{ 'X-ApiKey': this.apiKey }]);
+    if (this.bearerToken == null) {
+      return undefined;
+    }
+    return buildHeaders([{ Authorization: `Bearer ${this.bearerToken}` }]);
   }
 
   protected stringifyQuery(query: Record<string, unknown>): string {
@@ -956,6 +947,7 @@ export class Wuro {
   purchases: API.Purchases = new API.Purchases(this);
   purchaseCategories: API.PurchaseCategories = new API.PurchaseCategories(this);
   users: API.Users = new API.Users(this);
+  auth: API.Auth = new API.Auth(this);
 }
 
 Wuro.InvoiceFile = InvoiceFile;
@@ -981,6 +973,7 @@ Wuro.ProductCategories = ProductCategories;
 Wuro.Purchases = Purchases;
 Wuro.PurchaseCategories = PurchaseCategories;
 Wuro.Users = Users;
+Wuro.Auth = Auth;
 
 export declare namespace Wuro {
   export type RequestOptions = Opts.RequestOptions;
@@ -1236,5 +1229,11 @@ export declare namespace Wuro {
     type UserUpdateParams as UserUpdateParams,
     type UserListParams as UserListParams,
     type UserDeleteParams as UserDeleteParams,
+  };
+
+  export {
+    Auth as Auth,
+    type AuthLoginResponse as AuthLoginResponse,
+    type AuthLoginParams as AuthLoginParams,
   };
 }

@@ -485,3 +485,13 @@ Methods:
 - <code title="get /user/{uid}/notifications">client.users.<a href="./src/resources/users.ts">listNotifications</a>(uid) -> UserListNotificationsResponse</code>
 - <code title="get /user/{uid}/positions">client.users.<a href="./src/resources/users.ts">listPositions</a>(uid) -> UserListPositionsResponse</code>
 - <code title="get /user/{uid}">client.users.<a href="./src/resources/users.ts">retrieveByUid</a>(uid) -> UserRetrieveByUidResponse</code>
+
+# Auth
+
+Types:
+
+- <code><a href="./src/resources/auth.ts">AuthLoginResponse</a></code>
+
+Methods:
+
+- <code title="post /auth">client.auth.<a href="./src/resources/auth.ts">login</a>({ ...params }) -> AuthLoginResponse</code>
