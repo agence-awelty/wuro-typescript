@@ -50,18 +50,12 @@ export {
   type CompanyCreateResponse,
   type CompanyRetrieveResponse,
   type CompanyUpdateResponse,
-  type CompanyListResponse,
   type CompanyConfirmDomainResponse,
   type CompanyListPositionsResponse,
   type CompanyRetrieveByIDResponse,
   type CompanyRetrieveCgvResponse,
-  type CompanyRetrieveContainerStatsResponse,
   type CompanyRetrieveExtraInfosResponse,
-  type CompanySearchBySireneResponse,
-  type CompanySendDomainConfirmationResponse,
   type CompanyCreateParams,
-  type CompanyListParams,
-  type CompanySearchBySireneParams,
 } from './companies/companies';
 export { CompanyMails, type CompanyMailListResponse } from './company-mails';
 export {
@@ -111,8 +105,6 @@ export {
   type InvoiceSendEmailParams,
 } from './invoices/invoices';
 export { Order } from './order';
-export { Paybox } from './paybox/paybox';
-export { PayboxPaiementDone } from './paybox-paiement-done';
 export {
   PaymentMethods,
   type PaymentMethod,
@@ -203,20 +195,14 @@ export {
   type QuoteGetStatsParams,
 } from './quotes/quotes';
 export { Statistics, type StatisticRetrievePaymentsResponse } from './statistics';
-export { Stripe } from './stripe/stripe';
 export {
   Users,
   type User,
-  type UserCreateResponse,
   type UserRetrieveResponse,
   type UserUpdateResponse,
-  type UserListResponse,
   type UserListInvitationsResponse,
   type UserListNotificationsResponse,
   type UserListPositionsResponse,
   type UserRetrieveByUidResponse,
-  type UserCreateParams,
   type UserUpdateParams,
-  type UserListParams,
-  type UserDeleteParams,
 } from './users';

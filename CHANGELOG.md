@@ -1,5 +1,29 @@
 # Changelog
 
+## 2.0.0 (2025-12-23)
+
+Full Changelog: [v1.2.0...v2.0.0](https://github.com/agence-awelty/wuro-typescript/compare/v1.2.0...v2.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **mcp:** remove deprecated tool schemes
+* **mcp:** **Migration:** To migrate, simply modify the command used to invoke the MCP server. Currently, the only supported tool scheme is code mode. Now, starting the server with just `node /path/to/mcp/server` or `npx package-name` will invoke code tools: changing your command to one of these is likely all you will need to do.
+
+### Features
+
+* **api:** manual updates ([058b310](https://github.com/agence-awelty/wuro-typescript/commit/058b3103071274135933e1bfde403cd0700e2e68))
+* headers ([729fb2f](https://github.com/agence-awelty/wuro-typescript/commit/729fb2fc897f0903caf83287c9be8995483cc4ed))
+
+
+### Bug Fixes
+
+* **mcp:** pass base url to code tool ([7e5c908](https://github.com/agence-awelty/wuro-typescript/commit/7e5c9089e2506cdc676f4761a640dcea8d21fd48))
+
+
+### Chores
+
+* **mcp:** remove deprecated tool schemes ([f83d705](https://github.com/agence-awelty/wuro-typescript/commit/f83d7055b0c560c255f12b4c894fe77e8b74f709))
+
 ## 1.2.0 (2025-12-17)
 
 Full Changelog: [v1.1.0...v1.2.0](https://github.com/agence-awelty/wuro-typescript/compare/v1.1.0...v1.2.0)

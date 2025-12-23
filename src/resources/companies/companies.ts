@@ -55,24 +55,6 @@ export class Companies extends APIResource {
   }
 
   /**
-   * Récupère la liste des entreprises avec pagination, tri et filtres.
-   *
-   * **Filtres disponibles:**
-   *
-   * - `search`: Recherche par nom d'entreprise
-   * - `version` / `versions`: Filtre par version(s)
-   * - `email`: Filtre par email
-   * - `url`: Filtre par URL unique
-   * - `createdAt` / `createdAtMin` / `createdAtMax`: Filtre par date de création
-   */
-  list(
-    query: CompanyListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<CompanyListResponse> {
-    return this._client.get('/companies', { query, ...options });
-  }
-
-  /**
    * Supprime (désactive) une entreprise.
    *
    * **Restrictions:**
@@ -150,23 +132,6 @@ export class Companies extends APIResource {
   }
 
   /**
-   * Récupère les statistiques d'utilisation du stockage pour l'entreprise courante.
-   *
-   * **Informations retournées:**
-   *
-   * - `containerSize` : Taille totale du conteneur de stockage (en octets)
-   * - `containerPrivateSize` : Taille du stockage privé (en octets)
-   *
-   * **Utilisation:**
-   *
-   * - Affichage de l'espace utilisé
-   * - Gestion des quotas de stockage
-   */
-  retrieveContainerStats(options?: RequestOptions): APIPromise<CompanyRetrieveContainerStatsResponse> {
-    return this._client.get('/company/container-stats', options);
-  }
-
-  /**
    * Récupère les informations complètes d'une entreprise, incluant les données
    * Company et CompanyApp.
    *
@@ -182,50 +147,6 @@ export class Companies extends APIResource {
    */
   retrieveExtraInfos(uid: string, options?: RequestOptions): APIPromise<CompanyRetrieveExtraInfosResponse> {
     return this._client.get(path`/company/${uid}/extra-infos`, options);
-  }
-
-  /**
-   * Recherche une entreprise française via l'API SIRENE de l'INSEE.
-   *
-   * **Utilisation:**
-   *
-   * - Permet de pré-remplir les informations d'une entreprise à partir de son nom
-   * - Retourne les établissements actifs correspondant à la recherche
-   *
-   * **Données retournées:**
-   *
-   * - SIREN, SIRET, NIC
-   * - Raison sociale
-   * - Adresse complète
-   * - Code NAF/APE
-   */
-  searchBySirene(
-    query: CompanySearchBySireneParams,
-    options?: RequestOptions,
-  ): APIPromise<CompanySearchBySireneResponse> {
-    return this._client.get('/companies/sirene', { query, ...options });
-  }
-
-  /**
-   * Envoie un email de confirmation pour vérifier le domaine personnalisé de
-   * l'entreprise.
-   *
-   * **Fonctionnement:**
-   *
-   * - Un email est envoyé à l'adresse associée au domaine
-   * - L'email contient un lien de confirmation
-   * - La confirmation permet d'activer le domaine personnalisé
-   *
-   * **Utilisation:**
-   *
-   * - Configuration initiale du domaine
-   * - Renvoi du mail de confirmation si expiré
-   */
-  sendDomainConfirmation(
-    uid: string,
-    options?: RequestOptions,
-  ): APIPromise<CompanySendDomainConfirmationResponse> {
-    return this._client.patch(path`/company/${uid}/send-domain-confirm`, options);
   }
 }
 
@@ -486,16 +407,6 @@ export interface CompanyUpdateResponse {
   updatedCompany?: Company;
 }
 
-export interface CompanyListResponse {
-  companies?: Array<Company>;
-
-  limit?: number;
-
-  skip?: number;
-
-  total?: number;
-}
-
 export interface CompanyConfirmDomainResponse {
   company?: Company;
 
@@ -527,55 +438,10 @@ export interface CompanyRetrieveCgvResponse {
   cgv_wuro?: boolean;
 }
 
-export interface CompanyRetrieveContainerStatsResponse {
-  /**
-   * Taille du stockage privé (en octets)
-   */
-  containerPrivateSize?: number;
-
-  /**
-   * Taille totale du conteneur (en octets)
-   */
-  containerSize?: number;
-}
-
 export interface CompanyRetrieveExtraInfosResponse {
   company?: Company;
 
   companyApp?: AppInfosAPI.CompanyApp;
-}
-
-export interface CompanySearchBySireneResponse {
-  etablissements?: Array<CompanySearchBySireneResponse.Etablissement>;
-}
-
-export namespace CompanySearchBySireneResponse {
-  export interface Etablissement {
-    address?: unknown;
-
-    naf_ape?: string;
-
-    nic?: string;
-
-    siren?: string;
-
-    siret?: string;
-
-    uniteLegale?: Etablissement.UniteLegale;
-  }
-
-  export namespace Etablissement {
-    export interface UniteLegale {
-      denominationUniteLegale?: string;
-    }
-  }
-}
-
-export interface CompanySendDomainConfirmationResponse {
-  /**
-   * Message de confirmation d'envoi
-   */
-  message?: string;
 }
 
 export interface CompanyCreateParams {
@@ -664,45 +530,6 @@ export namespace CompanyCreateParams {
   }
 }
 
-export interface CompanyListParams {
-  /**
-   * Filtre par email
-   */
-  email?: string;
-
-  /**
-   * Nombre maximum d'entreprises à retourner
-   */
-  limit?: number;
-
-  /**
-   * Recherche par nom d'entreprise (insensible à la casse)
-   */
-  search?: string;
-
-  /**
-   * Nombre d'entreprises à ignorer (pagination)
-   */
-  skip?: number;
-
-  /**
-   * Champ de tri et direction
-   */
-  sort?: string;
-
-  /**
-   * Filtre par URL unique
-   */
-  url?: string;
-}
-
-export interface CompanySearchBySireneParams {
-  /**
-   * Nom de l'entreprise à rechercher
-   */
-  name: string;
-}
-
 Companies.AppInfos = AppInfos;
 Companies.PositionResource = PositionResource;
 
@@ -712,18 +539,12 @@ export declare namespace Companies {
     type CompanyCreateResponse as CompanyCreateResponse,
     type CompanyRetrieveResponse as CompanyRetrieveResponse,
     type CompanyUpdateResponse as CompanyUpdateResponse,
-    type CompanyListResponse as CompanyListResponse,
     type CompanyConfirmDomainResponse as CompanyConfirmDomainResponse,
     type CompanyListPositionsResponse as CompanyListPositionsResponse,
     type CompanyRetrieveByIDResponse as CompanyRetrieveByIDResponse,
     type CompanyRetrieveCgvResponse as CompanyRetrieveCgvResponse,
-    type CompanyRetrieveContainerStatsResponse as CompanyRetrieveContainerStatsResponse,
     type CompanyRetrieveExtraInfosResponse as CompanyRetrieveExtraInfosResponse,
-    type CompanySearchBySireneResponse as CompanySearchBySireneResponse,
-    type CompanySendDomainConfirmationResponse as CompanySendDomainConfirmationResponse,
     type CompanyCreateParams as CompanyCreateParams,
-    type CompanyListParams as CompanyListParams,
-    type CompanySearchBySireneParams as CompanySearchBySireneParams,
   };
 
   export { AppInfos as AppInfos, type CompanyApp as CompanyApp };
