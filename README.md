@@ -23,7 +23,8 @@ The full API of this library can be found in [api.md](api.md).
 import Wuro from 'wuro';
 
 const client = new Wuro({
-  bearerToken: process.env['WURO_BEARER_TOKEN'], // This is the default and can be omitted
+  appID: process.env['WURO_APP_ID'], // This is the default and can be omitted
+  appSecret: process.env['WURO_APP_SECRET'], // This is the default and can be omitted
 });
 
 const invoice = await client.invoices.create();
@@ -40,7 +41,8 @@ This library includes TypeScript definitions for all request params and response
 import Wuro from 'wuro';
 
 const client = new Wuro({
-  bearerToken: process.env['WURO_BEARER_TOKEN'], // This is the default and can be omitted
+  appID: process.env['WURO_APP_ID'], // This is the default and can be omitted
+  appSecret: process.env['WURO_APP_SECRET'], // This is the default and can be omitted
 });
 
 const invoice: Wuro.InvoiceCreateResponse = await client.invoices.create();

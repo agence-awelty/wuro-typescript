@@ -18,13 +18,20 @@
       "command": "node",
       "args": ["${__dirname}/index.js"],
       "env": {
-        "WURO_BEARER_TOKEN": "${user_config.WURO_BEARER_TOKEN}"
+        "WURO_APP_ID": "${user_config.WURO_APP_ID}",
+        "WURO_APP_SECRET": "${user_config.WURO_APP_SECRET}"
       }
     }
   },
   "user_config": {
-    "WURO_BEARER_TOKEN": {
-      "title": "bearer_token",
+    "WURO_APP_ID": {
+      "title": "app_id",
+      "description": "",
+      "required": false,
+      "type": "string"
+    },
+    "WURO_APP_SECRET": {
+      "title": "app_secret",
       "description": "",
       "required": false,
       "type": "string"
