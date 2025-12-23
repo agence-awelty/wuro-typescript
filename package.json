@@ -1,6 +1,6 @@
 {
   "name": "wuro",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "The official TypeScript library for the Wuro API",
   "author": "Wuro <>",
   "types": "dist/index.d.ts",
