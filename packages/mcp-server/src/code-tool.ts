@@ -36,7 +36,8 @@ export function codeTool(): McpTool {
         ...(stainlessAPIKey && { Authorization: stainlessAPIKey }),
         'Content-Type': 'application/json',
         client_envs: JSON.stringify({
-          WURO_BEARER_TOKEN: readEnv('WURO_BEARER_TOKEN'),
+          WURO_APP_ID: readEnv('WURO_APP_ID'),
+          WURO_APP_SECRET: readEnv('WURO_APP_SECRET'),
           WURO_BASE_URL: readEnv('WURO_BASE_URL'),
         }),
       },

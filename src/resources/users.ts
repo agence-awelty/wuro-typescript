@@ -9,20 +9,6 @@ import { path } from '../internal/utils/path';
 
 export class Users extends APIResource {
   /**
-   * Crée un nouveau compte utilisateur.
-   *
-   * **Important:**
-   *
-   * - Le mot de passe est obligatoire
-   * - Par défaut, l'utilisateur sera automatiquement supprimé après 24h si
-   *   `auto_deletion` n'est pas défini à 'migration'
-   * - L'état initial est 'created' (en attente de confirmation)
-   */
-  create(body: UserCreateParams, options?: RequestOptions): APIPromise<UserCreateResponse> {
-    return this._client.post('/user', { body, ...options });
-  }
-
-  /**
    * Retourne les informations de l'utilisateur actuellement authentifié. Utile pour
    * obtenir le profil de l'utilisateur après connexion.
    */
@@ -42,42 +28,6 @@ export class Users extends APIResource {
    */
   update(uid: string, body: UserUpdateParams, options?: RequestOptions): APIPromise<UserUpdateResponse> {
     return this._client.patch(path`/user/${uid}`, { body, ...options });
-  }
-
-  /**
-   * Récupère la liste des utilisateurs avec pagination et filtrage.
-   *
-   * **Filtres disponibles:**
-   *
-   * - `company`: Filtre par entreprise (ID de la company)
-   * - `search`: Recherche dans l'email, prénom et nom
-   *
-   * **Réponse:**
-   *
-   * - `users`: Liste des utilisateurs
-   * - `total`: Nombre total d'utilisateurs correspondants
-   * - `skip` et `limit`: Paramètres de pagination utilisés
-   */
-  list(
-    query: UserListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<UserListResponse> {
-    return this._client.get('/users', { query, ...options });
-  }
-
-  /**
-   * Supprime (désactive) l'utilisateur actuellement connecté.
-   *
-   * **Note:** L'utilisateur n'est pas réellement supprimé, son état passe à
-   * 'inactive'. Réservé à l'utilisateur système 'geswuro'.
-   */
-  delete(params: UserDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { email } = params;
-    return this._client.delete('/user', {
-      query: { email },
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 
   /**
@@ -281,29 +231,12 @@ export namespace User {
   }
 }
 
-export interface UserCreateResponse {
-  newUser?: User;
-}
-
 export interface UserRetrieveResponse {
   user?: User;
 }
 
 export interface UserUpdateResponse {
   updatedUser?: User;
-}
-
-export interface UserListResponse {
-  limit?: number;
-
-  skip?: number;
-
-  /**
-   * Nombre total d'utilisateurs
-   */
-  total?: number;
-
-  users?: Array<User>;
 }
 
 export interface UserListInvitationsResponse {
@@ -363,27 +296,6 @@ export interface UserListPositionsResponse {
 
 export interface UserRetrieveByUidResponse {
   user?: User;
-}
-
-export interface UserCreateParams {
-  /**
-   * Email unique de l'utilisateur (immuable après création)
-   */
-  email: string;
-
-  /**
-   * Mot de passe (obligatoire)
-   */
-  password: string;
-
-  /**
-   * 'migration' pour désactiver la suppression auto, sinon supprimé après 24h
-   */
-  auto_deletion?: string;
-
-  first_name?: string;
-
-  last_name?: string;
 }
 
 export interface UserUpdateParams {
@@ -467,49 +379,15 @@ export namespace UserUpdateParams {
   }
 }
 
-export interface UserListParams {
-  /**
-   * Filtre les utilisateurs ayant une position dans cette entreprise
-   */
-  company?: string;
-
-  /**
-   * Nombre maximum d'utilisateurs à retourner
-   */
-  limit?: number;
-
-  /**
-   * Recherche dans email, first_name, last_name (insensible à la casse)
-   */
-  search?: string;
-
-  /**
-   * Nombre d'utilisateurs à ignorer (pagination)
-   */
-  skip?: number;
-}
-
-export interface UserDeleteParams {
-  /**
-   * Email de l'utilisateur à supprimer
-   */
-  email: string;
-}
-
 export declare namespace Users {
   export {
     type User as User,
-    type UserCreateResponse as UserCreateResponse,
     type UserRetrieveResponse as UserRetrieveResponse,
     type UserUpdateResponse as UserUpdateResponse,
-    type UserListResponse as UserListResponse,
     type UserListInvitationsResponse as UserListInvitationsResponse,
     type UserListNotificationsResponse as UserListNotificationsResponse,
     type UserListPositionsResponse as UserListPositionsResponse,
     type UserRetrieveByUidResponse as UserRetrieveByUidResponse,
-    type UserCreateParams as UserCreateParams,
     type UserUpdateParams as UserUpdateParams,
-    type UserListParams as UserListParams,
-    type UserDeleteParams as UserDeleteParams,
   };
 }

@@ -8,41 +8,6 @@ Methods:
 
 - <code title="post /invoice-file">client.invoiceFile.<a href="./src/resources/invoice-file.ts">analyze</a>({ ...params }) -> InvoiceFileAnalyzeResponse</code>
 
-# PayboxPaiementDone
-
-Methods:
-
-- <code title="post /paybox-paiement-done/{transactionId}">client.payboxPaiementDone.<a href="./src/resources/paybox-paiement-done.ts">processCallback</a>(transactionID) -> void</code>
-- <code title="get /paybox-paiement-done/{transactionId}">client.payboxPaiementDone.<a href="./src/resources/paybox-paiement-done.ts">retrieveStatus</a>(transactionID) -> void</code>
-
-# Paybox
-
-## Checkout
-
-### Session
-
-Methods:
-
-- <code title="post /paybox/checkout/session/{id}">client.paybox.checkout.session.<a href="./src/resources/paybox/checkout/session.ts">update</a>(id) -> void</code>
-- <code title="get /paybox/checkout/session">client.paybox.checkout.session.<a href="./src/resources/paybox/checkout/session.ts">list</a>() -> void</code>
-
-# Stripe
-
-## Checkout
-
-### Session
-
-Methods:
-
-- <code title="get /stripe/checkout/session">client.stripe.checkout.session.<a href="./src/resources/stripe/checkout/session.ts">create</a>() -> void</code>
-- <code title="get /stripe/checkout/session/{id}">client.stripe.checkout.session.<a href="./src/resources/stripe/checkout/session.ts">retrieve</a>(id) -> void</code>
-
-## Webhook
-
-Methods:
-
-- <code title="post /stripe/webhook">client.stripe.webhook.<a href="./src/resources/stripe/webhook.ts">receive</a>() -> void</code>
-
 # Order
 
 Methods:
@@ -296,31 +261,23 @@ Types:
 - <code><a href="./src/resources/companies/companies.ts">CompanyCreateResponse</a></code>
 - <code><a href="./src/resources/companies/companies.ts">CompanyRetrieveResponse</a></code>
 - <code><a href="./src/resources/companies/companies.ts">CompanyUpdateResponse</a></code>
-- <code><a href="./src/resources/companies/companies.ts">CompanyListResponse</a></code>
 - <code><a href="./src/resources/companies/companies.ts">CompanyConfirmDomainResponse</a></code>
 - <code><a href="./src/resources/companies/companies.ts">CompanyListPositionsResponse</a></code>
 - <code><a href="./src/resources/companies/companies.ts">CompanyRetrieveByIDResponse</a></code>
 - <code><a href="./src/resources/companies/companies.ts">CompanyRetrieveCgvResponse</a></code>
-- <code><a href="./src/resources/companies/companies.ts">CompanyRetrieveContainerStatsResponse</a></code>
 - <code><a href="./src/resources/companies/companies.ts">CompanyRetrieveExtraInfosResponse</a></code>
-- <code><a href="./src/resources/companies/companies.ts">CompanySearchBySireneResponse</a></code>
-- <code><a href="./src/resources/companies/companies.ts">CompanySendDomainConfirmationResponse</a></code>
 
 Methods:
 
 - <code title="post /company">client.companies.<a href="./src/resources/companies/companies.ts">create</a>({ ...params }) -> CompanyCreateResponse</code>
 - <code title="get /company">client.companies.<a href="./src/resources/companies/companies.ts">retrieve</a>() -> CompanyRetrieveResponse</code>
 - <code title="patch /company/{uid}">client.companies.<a href="./src/resources/companies/companies.ts">update</a>(uid) -> CompanyUpdateResponse</code>
-- <code title="get /companies">client.companies.<a href="./src/resources/companies/companies.ts">list</a>({ ...params }) -> CompanyListResponse</code>
 - <code title="delete /company/{uid}">client.companies.<a href="./src/resources/companies/companies.ts">delete</a>(uid) -> void</code>
 - <code title="patch /company/{uid}/domain-confirm">client.companies.<a href="./src/resources/companies/companies.ts">confirmDomain</a>(uid) -> CompanyConfirmDomainResponse</code>
 - <code title="get /company/{uid}/positions">client.companies.<a href="./src/resources/companies/companies.ts">listPositions</a>(uid) -> CompanyListPositionsResponse</code>
 - <code title="get /company/{uid}">client.companies.<a href="./src/resources/companies/companies.ts">retrieveByID</a>(uid) -> CompanyRetrieveByIDResponse</code>
 - <code title="get /company/{uid}/cgv">client.companies.<a href="./src/resources/companies/companies.ts">retrieveCgv</a>(uid) -> CompanyRetrieveCgvResponse</code>
-- <code title="get /company/container-stats">client.companies.<a href="./src/resources/companies/companies.ts">retrieveContainerStats</a>() -> CompanyRetrieveContainerStatsResponse</code>
 - <code title="get /company/{uid}/extra-infos">client.companies.<a href="./src/resources/companies/companies.ts">retrieveExtraInfos</a>(uid) -> CompanyRetrieveExtraInfosResponse</code>
-- <code title="get /companies/sirene">client.companies.<a href="./src/resources/companies/companies.ts">searchBySirene</a>({ ...params }) -> CompanySearchBySireneResponse</code>
-- <code title="patch /company/{uid}/send-domain-confirm">client.companies.<a href="./src/resources/companies/companies.ts">sendDomainConfirmation</a>(uid) -> CompanySendDomainConfirmationResponse</code>
 
 ## AppInfos
 
@@ -464,10 +421,8 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/users.ts">User</a></code>
-- <code><a href="./src/resources/users.ts">UserCreateResponse</a></code>
 - <code><a href="./src/resources/users.ts">UserRetrieveResponse</a></code>
 - <code><a href="./src/resources/users.ts">UserUpdateResponse</a></code>
-- <code><a href="./src/resources/users.ts">UserListResponse</a></code>
 - <code><a href="./src/resources/users.ts">UserListInvitationsResponse</a></code>
 - <code><a href="./src/resources/users.ts">UserListNotificationsResponse</a></code>
 - <code><a href="./src/resources/users.ts">UserListPositionsResponse</a></code>
@@ -475,11 +430,8 @@ Types:
 
 Methods:
 
-- <code title="post /user">client.users.<a href="./src/resources/users.ts">create</a>({ ...params }) -> UserCreateResponse</code>
 - <code title="get /user">client.users.<a href="./src/resources/users.ts">retrieve</a>() -> UserRetrieveResponse</code>
 - <code title="patch /user/{uid}">client.users.<a href="./src/resources/users.ts">update</a>(uid, { ...params }) -> UserUpdateResponse</code>
-- <code title="get /users">client.users.<a href="./src/resources/users.ts">list</a>({ ...params }) -> UserListResponse</code>
-- <code title="delete /user">client.users.<a href="./src/resources/users.ts">delete</a>({ ...params }) -> void</code>
 - <code title="delete /user/{uid}">client.users.<a href="./src/resources/users.ts">deactivate</a>(uid) -> void</code>
 - <code title="get /user/{uid}/invitations">client.users.<a href="./src/resources/users.ts">listInvitations</a>(uid) -> UserListInvitationsResponse</code>
 - <code title="get /user/{uid}/notifications">client.users.<a href="./src/resources/users.ts">listNotifications</a>(uid) -> UserListNotificationsResponse</code>

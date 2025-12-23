@@ -81,7 +81,6 @@ import {
 import { Export, ExportExportAbsencesParams, ExportExportAbsencesResponse } from './resources/export';
 import { InvoiceFile, InvoiceFileAnalyzeParams, InvoiceFileAnalyzeResponse } from './resources/invoice-file';
 import { Order } from './resources/order';
-import { PayboxPaiementDone } from './resources/paybox-paiement-done';
 import {
   PaymentMethod,
   PaymentMethodCreateParams,
@@ -133,14 +132,9 @@ import {
 import { StatisticRetrievePaymentsResponse, Statistics } from './resources/statistics';
 import {
   User,
-  UserCreateParams,
-  UserCreateResponse,
-  UserDeleteParams,
   UserListInvitationsResponse,
   UserListNotificationsResponse,
-  UserListParams,
   UserListPositionsResponse,
-  UserListResponse,
   UserRetrieveByUidResponse,
   UserRetrieveResponse,
   UserUpdateParams,
@@ -153,17 +147,11 @@ import {
   CompanyConfirmDomainResponse,
   CompanyCreateParams,
   CompanyCreateResponse,
-  CompanyListParams,
   CompanyListPositionsResponse,
-  CompanyListResponse,
   CompanyRetrieveByIDResponse,
   CompanyRetrieveCgvResponse,
-  CompanyRetrieveContainerStatsResponse,
   CompanyRetrieveExtraInfosResponse,
   CompanyRetrieveResponse,
-  CompanySearchBySireneParams,
-  CompanySearchBySireneResponse,
-  CompanySendDomainConfirmationResponse,
   CompanyUpdateResponse,
 } from './resources/companies/companies';
 import {
@@ -194,7 +182,6 @@ import {
   InvoiceUpdateResponse,
   Invoices,
 } from './resources/invoices/invoices';
-import { Paybox } from './resources/paybox/paybox';
 import {
   Product,
   ProductCreateParams,
@@ -236,7 +223,6 @@ import {
   QuoteUpdateResponse,
   Quotes,
 } from './resources/quotes/quotes';
-import { Stripe } from './resources/stripe/stripe';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -252,9 +238,14 @@ import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['WURO_BEARER_TOKEN'].
+   * Defaults to process.env['WURO_APP_ID'].
    */
-  bearerToken?: string | null | undefined;
+  appID?: string | null | undefined;
+
+  /**
+   * Defaults to process.env['WURO_APP_SECRET'].
+   */
+  appSecret?: string | null | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -329,7 +320,8 @@ export interface ClientOptions {
  * API Client for interfacing with the Wuro API.
  */
 export class Wuro {
-  bearerToken: string | null;
+  appID: string | null;
+  appSecret: string | null;
 
   baseURL: string;
   maxRetries: number;
@@ -346,7 +338,8 @@ export class Wuro {
   /**
    * API Client for interfacing with the Wuro API.
    *
-   * @param {string | null | undefined} [opts.bearerToken=process.env['WURO_BEARER_TOKEN'] ?? null]
+   * @param {string | null | undefined} [opts.appID=process.env['WURO_APP_ID'] ?? null]
+   * @param {string | null | undefined} [opts.appSecret=process.env['WURO_APP_SECRET'] ?? null]
    * @param {string} [opts.baseURL=process.env['WURO_BASE_URL'] ?? https://wuro.pro/api/v3.2] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -357,11 +350,13 @@ export class Wuro {
    */
   constructor({
     baseURL = readEnv('WURO_BASE_URL'),
-    bearerToken = readEnv('WURO_BEARER_TOKEN') ?? null,
+    appID = readEnv('WURO_APP_ID') ?? null,
+    appSecret = readEnv('WURO_APP_SECRET') ?? null,
     ...opts
   }: ClientOptions = {}) {
     const options: ClientOptions = {
-      bearerToken,
+      appID,
+      appSecret,
       ...opts,
       baseURL: baseURL || `https://wuro.pro/api/v3.2`,
     };
@@ -383,7 +378,8 @@ export class Wuro {
 
     this._options = options;
 
-    this.bearerToken = bearerToken;
+    this.appID = appID;
+    this.appSecret = appSecret;
   }
 
   /**
@@ -399,7 +395,8 @@ export class Wuro {
       logLevel: this.logLevel,
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
-      bearerToken: this.bearerToken,
+      appID: this.appID,
+      appSecret: this.appSecret,
       ...options,
     });
     return client;
@@ -417,23 +414,41 @@ export class Wuro {
   }
 
   protected validateHeaders({ values, nulls }: NullableHeaders) {
-    if (this.bearerToken && values.get('authorization')) {
+    if (this.appID && values.get('x-app-id')) {
       return;
     }
-    if (nulls.has('authorization')) {
+    if (nulls.has('x-app-id')) {
+      return;
+    }
+
+    if (this.appSecret && values.get('x-app-secret')) {
+      return;
+    }
+    if (nulls.has('x-app-secret')) {
       return;
     }
 
     throw new Error(
-      'Could not resolve authentication method. Expected the bearerToken to be set. Or for the "Authorization" headers to be explicitly omitted',
+      'Could not resolve authentication method. Expected either appID or appSecret to be set. Or for one of the "X-APP-ID" or "X-APP-SECRET" headers to be explicitly omitted',
     );
   }
 
   protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
-    if (this.bearerToken == null) {
+    return buildHeaders([await this.appIDAuth(opts), await this.appSecretAuth(opts)]);
+  }
+
+  protected async appIDAuth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+    if (this.appID == null) {
       return undefined;
     }
-    return buildHeaders([{ Authorization: `Bearer ${this.bearerToken}` }]);
+    return buildHeaders([{ 'X-APP-ID': this.appID }]);
+  }
+
+  protected async appSecretAuth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+    if (this.appSecret == null) {
+      return undefined;
+    }
+    return buildHeaders([{ 'X-APP-SECRET': this.appSecret }]);
   }
 
   protected stringifyQuery(query: Record<string, unknown>): string {
@@ -925,9 +940,6 @@ export class Wuro {
   static toFile = Uploads.toFile;
 
   invoiceFile: API.InvoiceFile = new API.InvoiceFile(this);
-  payboxPaiementDone: API.PayboxPaiementDone = new API.PayboxPaiementDone(this);
-  paybox: API.Paybox = new API.Paybox(this);
-  stripe: API.Stripe = new API.Stripe(this);
   order: API.Order = new API.Order(this);
   statistics: API.Statistics = new API.Statistics(this);
   export: API.Export = new API.Export(this);
@@ -951,9 +963,6 @@ export class Wuro {
 }
 
 Wuro.InvoiceFile = InvoiceFile;
-Wuro.PayboxPaiementDone = PayboxPaiementDone;
-Wuro.Paybox = Paybox;
-Wuro.Stripe = Stripe;
 Wuro.Order = Order;
 Wuro.Statistics = Statistics;
 Wuro.Export = Export;
@@ -983,12 +992,6 @@ export declare namespace Wuro {
     type InvoiceFileAnalyzeResponse as InvoiceFileAnalyzeResponse,
     type InvoiceFileAnalyzeParams as InvoiceFileAnalyzeParams,
   };
-
-  export { PayboxPaiementDone as PayboxPaiementDone };
-
-  export { Paybox as Paybox };
-
-  export { Stripe as Stripe };
 
   export { Order as Order };
 
@@ -1131,18 +1134,12 @@ export declare namespace Wuro {
     type CompanyCreateResponse as CompanyCreateResponse,
     type CompanyRetrieveResponse as CompanyRetrieveResponse,
     type CompanyUpdateResponse as CompanyUpdateResponse,
-    type CompanyListResponse as CompanyListResponse,
     type CompanyConfirmDomainResponse as CompanyConfirmDomainResponse,
     type CompanyListPositionsResponse as CompanyListPositionsResponse,
     type CompanyRetrieveByIDResponse as CompanyRetrieveByIDResponse,
     type CompanyRetrieveCgvResponse as CompanyRetrieveCgvResponse,
-    type CompanyRetrieveContainerStatsResponse as CompanyRetrieveContainerStatsResponse,
     type CompanyRetrieveExtraInfosResponse as CompanyRetrieveExtraInfosResponse,
-    type CompanySearchBySireneResponse as CompanySearchBySireneResponse,
-    type CompanySendDomainConfirmationResponse as CompanySendDomainConfirmationResponse,
     type CompanyCreateParams as CompanyCreateParams,
-    type CompanyListParams as CompanyListParams,
-    type CompanySearchBySireneParams as CompanySearchBySireneParams,
   };
 
   export {
@@ -1217,18 +1214,13 @@ export declare namespace Wuro {
   export {
     Users as Users,
     type User as User,
-    type UserCreateResponse as UserCreateResponse,
     type UserRetrieveResponse as UserRetrieveResponse,
     type UserUpdateResponse as UserUpdateResponse,
-    type UserListResponse as UserListResponse,
     type UserListInvitationsResponse as UserListInvitationsResponse,
     type UserListNotificationsResponse as UserListNotificationsResponse,
     type UserListPositionsResponse as UserListPositionsResponse,
     type UserRetrieveByUidResponse as UserRetrieveByUidResponse,
-    type UserCreateParams as UserCreateParams,
     type UserUpdateParams as UserUpdateParams,
-    type UserListParams as UserListParams,
-    type UserDeleteParams as UserDeleteParams,
   };
 
   export {

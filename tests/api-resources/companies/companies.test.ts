@@ -3,7 +3,8 @@
 import Wuro from 'wuro';
 
 const client = new Wuro({
-  bearerToken: 'My Bearer Token',
+  appID: 'My App ID',
+  appSecret: 'My App Secret',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
@@ -63,29 +64,6 @@ describe('resource companies', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.companies.list();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.companies.list(
-        { email: 'email', limit: 0, search: 'search', skip: 0, sort: 'name:1', url: 'url' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Wuro.NotFoundError);
   });
 
   // Prism tests are disabled
@@ -149,49 +127,8 @@ describe('resource companies', () => {
   });
 
   // Prism tests are disabled
-  test.skip('retrieveContainerStats', async () => {
-    const responsePromise = client.companies.retrieveContainerStats();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
   test.skip('retrieveExtraInfos', async () => {
     const responsePromise = client.companies.retrieveExtraInfos('uid');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('searchBySirene: only required params', async () => {
-    const responsePromise = client.companies.searchBySirene({ name: 'name' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('searchBySirene: required and optional params', async () => {
-    const response = await client.companies.searchBySirene({ name: 'name' });
-  });
-
-  // Prism tests are disabled
-  test.skip('sendDomainConfirmation', async () => {
-    const responsePromise = client.companies.sendDomainConfirmation('uid');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
