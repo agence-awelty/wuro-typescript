@@ -60,7 +60,11 @@ describe('resource variant', () => {
       price_ht: 0,
       reference: 'reference',
       sku: 'sku',
-      stock: { nb_alert: 0, nb_min: 0, nb_stock: 0 },
+      stock: {
+        nb_alert: 0,
+        nb_min: 0,
+        nb_stock: 0,
+      },
       tva_rate: 0,
     });
   });

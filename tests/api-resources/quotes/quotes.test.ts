@@ -247,7 +247,11 @@ describe('resource quotes', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.quotes.getStats(
-        { maxDate: '2019-12-27T18:11:19.117Z', minDate: '2019-12-27T18:11:19.117Z', state: 'state' },
+        {
+          maxDate: '2019-12-27T18:11:19.117Z',
+          minDate: '2019-12-27T18:11:19.117Z',
+          state: 'state',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Wuro.NotFoundError);

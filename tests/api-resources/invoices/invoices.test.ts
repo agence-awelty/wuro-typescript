@@ -157,7 +157,11 @@ describe('resource invoices', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.invoices.getLogs(
-        { invoice: 'invoice', limit: 0, skip: 0 },
+        {
+          invoice: 'invoice',
+          limit: 0,
+          skip: 0,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Wuro.NotFoundError);
@@ -180,7 +184,11 @@ describe('resource invoices', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.invoices.getStats(
-        { maxDate: '2019-12-27T18:11:19.117Z', minDate: '2019-12-27T18:11:19.117Z', state: 'state' },
+        {
+          maxDate: '2019-12-27T18:11:19.117Z',
+          minDate: '2019-12-27T18:11:19.117Z',
+          state: 'state',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Wuro.NotFoundError);
@@ -255,7 +263,11 @@ describe('resource invoices', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.invoices.listWaitingPayments(
-        { limit: 0, skip: 0, state: ['waiting'] },
+        {
+          limit: 0,
+          skip: 0,
+          state: ['waiting'],
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Wuro.NotFoundError);

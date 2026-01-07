@@ -70,7 +70,13 @@ describe('resource purchases', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.purchases.list(
-        { limit: 0, skip: 0, sort: 'date:-1', state: 'draft', supplier: 'supplier' },
+        {
+          limit: 0,
+          skip: 0,
+          sort: 'date:-1',
+          state: 'draft',
+          supplier: 'supplier',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Wuro.NotFoundError);

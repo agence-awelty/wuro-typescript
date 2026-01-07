@@ -41,8 +41,18 @@ describe('resource products', () => {
       price_ht: 0,
       reference: 'reference',
       sku: 'sku',
-      specifications: { depth: 0, height: 0, weight: 0, width: 0 },
-      stock: { forceSell: true, nb_alert: 0, nb_min: 0, nb_stock: 0 },
+      specifications: {
+        depth: 0,
+        height: 0,
+        weight: 0,
+        width: 0,
+      },
+      stock: {
+        forceSell: true,
+        nb_alert: 0,
+        nb_min: 0,
+        nb_stock: 0,
+      },
       suppliers: ['string'],
       tva: 'tva',
       tva_rate: 0,
@@ -103,8 +113,18 @@ describe('resource products', () => {
       price_ht: 0,
       reference: 'reference',
       sku: 'sku',
-      specifications: { depth: 0, height: 0, weight: 0, width: 0 },
-      stock: { forceSell: true, nb_alert: 0, nb_min: 0, nb_stock: 0 },
+      specifications: {
+        depth: 0,
+        height: 0,
+        weight: 0,
+        width: 0,
+      },
+      stock: {
+        forceSell: true,
+        nb_alert: 0,
+        nb_min: 0,
+        nb_stock: 0,
+      },
       suppliers: ['string'],
       tva: 'tva',
       tva_rate: 0,
@@ -130,7 +150,14 @@ describe('resource products', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.products.list(
-        { category: 'category', limit: 0, search: 'search', skip: 0, sort: 'name:1', state: 'active' },
+        {
+          category: 'category',
+          limit: 0,
+          search: 'search',
+          skip: 0,
+          sort: 'name:1',
+          state: 'active',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Wuro.NotFoundError);
