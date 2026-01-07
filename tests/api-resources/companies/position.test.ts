@@ -26,7 +26,13 @@ describe('resource position', () => {
     const response = await client.companies.position.create('uid', {
       type: 'type',
       user: 'user',
-      rights: [{ checked: true, group: 'group', name: 'name' }],
+      rights: [
+        {
+          checked: true,
+          group: 'group',
+          name: 'name',
+        },
+      ],
     });
   });
 
@@ -46,7 +52,13 @@ describe('resource position', () => {
   test.skip('update: required and optional params', async () => {
     const response = await client.companies.position.update('uid', {
       company: 'company',
-      rights: [{ checked: true, group: 'group', name: 'name' }],
+      rights: [
+        {
+          checked: true,
+          group: 'group',
+          name: 'name',
+        },
+      ],
       state: 'active',
       type: 'type',
     });

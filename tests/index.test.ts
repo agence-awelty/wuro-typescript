@@ -134,7 +134,11 @@ describe('instantiate client', () => {
       };
 
       process.env['WURO_LOG'] = 'debug';
-      const client = new Wuro({ logger: logger, appID: 'My App ID', appSecret: 'My App Secret' });
+      const client = new Wuro({
+        logger: logger,
+        appID: 'My App ID',
+        appSecret: 'My App Secret',
+      });
       expect(client.logLevel).toBe('debug');
 
       await forceAPIResponseForClient(client);
@@ -151,7 +155,11 @@ describe('instantiate client', () => {
       };
 
       process.env['WURO_LOG'] = 'not a log level';
-      const client = new Wuro({ logger: logger, appID: 'My App ID', appSecret: 'My App Secret' });
+      const client = new Wuro({
+        logger: logger,
+        appID: 'My App ID',
+        appSecret: 'My App Secret',
+      });
       expect(client.logLevel).toBe('warn');
       expect(warnMock).toHaveBeenCalledWith(
         'process.env[\'WURO_LOG\'] was set to "not a log level", expected one of ["off","error","warn","info","debug"]',
@@ -383,7 +391,11 @@ describe('instantiate client', () => {
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new Wuro({ maxRetries: 4, appID: 'My App ID', appSecret: 'My App Secret' });
+    const client = new Wuro({
+      maxRetries: 4,
+      appID: 'My App ID',
+      appSecret: 'My App Secret',
+    });
     expect(client.maxRetries).toEqual(4);
 
     // default
@@ -761,7 +773,11 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Wuro({ appID: 'My App ID', appSecret: 'My App Secret', fetch: testFetch });
+    const client = new Wuro({
+      appID: 'My App ID',
+      appSecret: 'My App Secret',
+      fetch: testFetch,
+    });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -791,7 +807,11 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Wuro({ appID: 'My App ID', appSecret: 'My App Secret', fetch: testFetch });
+    const client = new Wuro({
+      appID: 'My App ID',
+      appSecret: 'My App Secret',
+      fetch: testFetch,
+    });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);

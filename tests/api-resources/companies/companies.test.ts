@@ -26,7 +26,14 @@ describe('resource companies', () => {
     const response = await client.companies.create({
       name: 'name',
       url: 'url',
-      addresses: [{ city: 'city', country: 'country', street: 'street', zip_code: 'zip_code' }],
+      addresses: [
+        {
+          city: 'city',
+          country: 'country',
+          street: 'street',
+          zip_code: 'zip_code',
+        },
+      ],
       commercial_court: 'commercial_court',
       company_type: 'company_type',
       email: 'dev@stainless.com',

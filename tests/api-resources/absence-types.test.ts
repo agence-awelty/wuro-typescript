@@ -75,7 +75,13 @@ describe('resource absenceTypes', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.absenceTypes.list(
-        { limit: 0, skip: 0, sort: 'name:1', state: 'active', type: 'absence' },
+        {
+          limit: 0,
+          skip: 0,
+          sort: 'name:1',
+          state: 'active',
+          type: 'absence',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Wuro.NotFoundError);

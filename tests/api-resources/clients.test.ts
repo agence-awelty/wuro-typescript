@@ -124,7 +124,13 @@ describe('resource clients', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.clients.list(
-        { limit: 0, search: 'search', skip: 0, sort: 'name:1', state: 'active' },
+        {
+          limit: 0,
+          search: 'search',
+          skip: 0,
+          sort: 'name:1',
+          state: 'active',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Wuro.NotFoundError);
