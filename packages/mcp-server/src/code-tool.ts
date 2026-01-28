@@ -4,6 +4,7 @@ import { McpTool, Metadata, ToolCallResult, asErrorResult, asTextContentResult }
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { readEnv } from './server';
 import { WorkerInput, WorkerOutput } from './code-tool-types';
+import { Wuro } from 'wuro';
 
 const prompt = `Runs JavaScript code to interact with the Wuro API.
 
@@ -54,7 +55,7 @@ export function codeTool(): McpTool {
       required: ['code'],
     },
   };
-  const handler = async (_: unknown, args: any): Promise<ToolCallResult> => {
+  const handler = async (client: Wuro, args: any): Promise<ToolCallResult> => {
     const code = args.code as string;
     const intent = args.intent as string | undefined;
 
@@ -70,9 +71,9 @@ export function codeTool(): McpTool {
         ...(stainlessAPIKey && { Authorization: stainlessAPIKey }),
         'Content-Type': 'application/json',
         client_envs: JSON.stringify({
-          WURO_APP_ID: readEnv('WURO_APP_ID'),
-          WURO_APP_SECRET: readEnv('WURO_APP_SECRET'),
-          WURO_BASE_URL: readEnv('WURO_BASE_URL'),
+          WURO_APP_ID: readEnv('WURO_APP_ID') ?? client.appID ?? undefined,
+          WURO_APP_SECRET: readEnv('WURO_APP_SECRET') ?? client.appSecret ?? undefined,
+          WURO_BASE_URL: readEnv('WURO_BASE_URL') ?? client.baseURL ?? undefined,
         }),
       },
       body: JSON.stringify({
