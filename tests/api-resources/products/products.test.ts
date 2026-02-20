@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource products', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.products.create({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource products', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.products.create({
       name: 'name',
@@ -61,7 +61,7 @@ describe('resource products', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.products.retrieve('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -73,7 +73,7 @@ describe('resource products', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -81,7 +81,7 @@ describe('resource products', () => {
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.products.update('uid', { name: 'name' });
     const rawResponse = await responsePromise.asResponse();
@@ -93,7 +93,7 @@ describe('resource products', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.products.update('uid', {
       name: 'name',
@@ -133,7 +133,7 @@ describe('resource products', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.products.list();
     const rawResponse = await responsePromise.asResponse();
@@ -145,7 +145,7 @@ describe('resource products', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -163,7 +163,7 @@ describe('resource products', () => {
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.products.delete('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -175,7 +175,7 @@ describe('resource products', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('importFromCsv', async () => {
     const responsePromise = client.products.importFromCsv({});
     const rawResponse = await responsePromise.asResponse();
@@ -187,7 +187,7 @@ describe('resource products', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listVariants', async () => {
     const responsePromise = client.products.listVariants('uid');
     const rawResponse = await responsePromise.asResponse();

@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource invoiceFile', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('analyze: only required params', async () => {
     const responsePromise = client.invoiceFile.analyze({ file: 'file' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource invoiceFile', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('analyze: required and optional params', async () => {
     const response = await client.invoiceFile.analyze({ file: 'file' });
   });
