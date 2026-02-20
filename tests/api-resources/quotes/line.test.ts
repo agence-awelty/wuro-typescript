@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource line', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.quotes.line.update('lineUuid', { uid: 'uid' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource line', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.quotes.line.update('lineUuid', {
       uid: 'uid',
@@ -36,7 +36,7 @@ describe('resource line', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.quotes.line.delete('lineUuid', { uid: 'uid' });
     const rawResponse = await responsePromise.asResponse();
@@ -48,12 +48,12 @@ describe('resource line', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.quotes.line.delete('lineUuid', { uid: 'uid' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('add', async () => {
     const responsePromise = client.quotes.line.add('uid', {});
     const rawResponse = await responsePromise.asResponse();

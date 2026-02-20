@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource users', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.users.retrieve();
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.users.update('uid', {});
     const rawResponse = await responsePromise.asResponse();
@@ -33,7 +33,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deactivate', async () => {
     const responsePromise = client.users.deactivate('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -45,7 +45,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listInvitations', async () => {
     const responsePromise = client.users.listInvitations('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -57,7 +57,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listNotifications', async () => {
     const responsePromise = client.users.listNotifications('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -69,7 +69,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listPositions', async () => {
     const responsePromise = client.users.listPositions('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -81,7 +81,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveByUid', async () => {
     const responsePromise = client.users.retrieveByUid('uid');
     const rawResponse = await responsePromise.asResponse();

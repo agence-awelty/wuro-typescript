@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource paymentMethods', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.paymentMethods.create({ name: 'Virement bancaire' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource paymentMethods', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.paymentMethods.create({
       name: 'Virement bancaire',
@@ -36,7 +36,7 @@ describe('resource paymentMethods', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.paymentMethods.retrieve('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -48,7 +48,7 @@ describe('resource paymentMethods', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.paymentMethods.update('uid', {});
     const rawResponse = await responsePromise.asResponse();
@@ -60,7 +60,7 @@ describe('resource paymentMethods', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.paymentMethods.list();
     const rawResponse = await responsePromise.asResponse();
@@ -72,7 +72,7 @@ describe('resource paymentMethods', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -80,7 +80,7 @@ describe('resource paymentMethods', () => {
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.paymentMethods.delete('uid');
     const rawResponse = await responsePromise.asResponse();

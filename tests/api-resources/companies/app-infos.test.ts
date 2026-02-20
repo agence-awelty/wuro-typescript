@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource appInfos', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.companies.appInfos.retrieve();
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource appInfos', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveByID', async () => {
     const responsePromise = client.companies.appInfos.retrieveByID('uid');
     const rawResponse = await responsePromise.asResponse();

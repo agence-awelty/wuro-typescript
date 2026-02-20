@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource statistics', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrievePayments', async () => {
     const responsePromise = client.statistics.retrievePayments();
     const rawResponse = await responsePromise.asResponse();

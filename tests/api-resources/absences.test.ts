@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource absences', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.absences.create({
       from: '2024-12-23T00:00:00.000Z',
@@ -25,7 +25,7 @@ describe('resource absences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.absences.create({
       from: '2024-12-23T00:00:00.000Z',
@@ -40,7 +40,7 @@ describe('resource absences', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.absences.retrieve('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -52,7 +52,7 @@ describe('resource absences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -60,7 +60,7 @@ describe('resource absences', () => {
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.absences.update('uid', {});
     const rawResponse = await responsePromise.asResponse();
@@ -72,7 +72,7 @@ describe('resource absences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.absences.list();
     const rawResponse = await responsePromise.asResponse();
@@ -84,7 +84,7 @@ describe('resource absences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -109,7 +109,7 @@ describe('resource absences', () => {
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.absences.delete('uid');
     const rawResponse = await responsePromise.asResponse();

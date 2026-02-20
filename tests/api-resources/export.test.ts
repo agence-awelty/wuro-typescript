@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource export', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('exportAbsences', async () => {
     const responsePromise = client.export.exportAbsences({});
     const rawResponse = await responsePromise.asResponse();
