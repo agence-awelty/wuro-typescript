@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource companies', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.companies.create({ name: 'name', url: 'url' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,12 +21,19 @@ describe('resource companies', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.companies.create({
       name: 'name',
       url: 'url',
-      addresses: [{ city: 'city', country: 'country', street: 'street', zip_code: 'zip_code' }],
+      addresses: [
+        {
+          city: 'city',
+          country: 'country',
+          street: 'street',
+          zip_code: 'zip_code',
+        },
+      ],
       commercial_court: 'commercial_court',
       company_type: 'company_type',
       email: 'dev@stainless.com',
@@ -42,7 +49,7 @@ describe('resource companies', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.companies.retrieve();
     const rawResponse = await responsePromise.asResponse();
@@ -54,7 +61,7 @@ describe('resource companies', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.companies.update('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -66,7 +73,7 @@ describe('resource companies', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.companies.delete('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -78,7 +85,7 @@ describe('resource companies', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('confirmDomain', async () => {
     const responsePromise = client.companies.confirmDomain('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -90,7 +97,7 @@ describe('resource companies', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listPositions', async () => {
     const responsePromise = client.companies.listPositions('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -102,7 +109,7 @@ describe('resource companies', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveByID', async () => {
     const responsePromise = client.companies.retrieveByID('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -114,7 +121,7 @@ describe('resource companies', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveCgv', async () => {
     const responsePromise = client.companies.retrieveCgv('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -126,7 +133,7 @@ describe('resource companies', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveExtraInfos', async () => {
     const responsePromise = client.companies.retrieveExtraInfos('uid');
     const rawResponse = await responsePromise.asResponse();

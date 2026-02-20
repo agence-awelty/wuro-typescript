@@ -1,74 +1,74 @@
 # Dockerfile for Wuro MCP Server
-    #
-    # This Dockerfile builds a Docker image for the MCP Server.
-    #
-    # To build the image locally:
-    #   docker build -f packages/mcp-server/Dockerfile -t wuro-mcp:local .
-    #
-    # To run the image:
-    #   docker run -i wuro-mcp:local [OPTIONS]
-    #
-    # Common options:
-    #   --tool=<name>              Include specific tools
-    #   --resource=<name>          Include tools for specific resources
-    #   --operation=read|write     Filter by operation type
-    #   --client=<type>            Set client compatibility (e.g., claude, cursor)
-    #   --transport=<type>         Set transport type (stdio or http)
-    #
-    # For a full list of options:
-    #   docker run -i wuro-mcp:local --help
-    #
-    # Note: The MCP server uses stdio transport by default. Docker's -i flag
-    # enables interactive mode, allowing the container to communicate over stdin/stdout.
+#
+# This Dockerfile builds a Docker image for the MCP Server.
+#
+# To build the image locally:
+#   docker build -f packages/mcp-server/Dockerfile -t wuro-mcp:local .
+#
+# To run the image:
+#   docker run -i wuro-mcp:local [OPTIONS]
+#
+# Common options:
+#   --tool=<name>              Include specific tools
+#   --resource=<name>          Include tools for specific resources
+#   --operation=read|write     Filter by operation type
+#   --client=<type>            Set client compatibility (e.g., claude, cursor)
+#   --transport=<type>         Set transport type (stdio or http)
+#
+# For a full list of options:
+#   docker run -i wuro-mcp:local --help
+#
+# Note: The MCP server uses stdio transport by default. Docker's -i flag
+# enables interactive mode, allowing the container to communicate over stdin/stdout.
 
-    # Build stage
-    FROM node:20-alpine AS builder
+# Build stage
+FROM node:24-alpine AS builder
 
 # Enable corepack to use pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-    # Install bash for build script
-    RUN apk add --no-cache bash openssl
+# Install bash for build script
+RUN apk add --no-cache bash openssl
 
-    # Set working directory
-    WORKDIR /build
+# Set working directory
+WORKDIR /build
 
-    # Copy entire repository
-    COPY . .
+# Copy entire repository
+COPY . .
 
-    # Install all dependencies and build everything
-    RUN pnpm install --frozen-lockfile && \
-        pnpm build
+# Set CI environment variable so pnpm install runs without prompts
+ENV CI=true
 
-    # Production stage
+# Install all dependencies and build everything
+RUN pnpm install --frozen-lockfile && \
+    pnpm build
 
-    # Add non-root user
-    RUN addgroup -g 1001 -S nodejs && adduser -S nodejs -u 1001
+# Production stage
+FROM node:24-alpine
 
-    # Set working directory
-    WORKDIR /app
+# Add non-root user
+RUN addgroup -g 1001 -S nodejs && adduser -S nodejs -u 1001
 
-# Copy the built mcp-server preserving directory structure
-COPY --from=builder /build/packages/mcp-server/dist ./packages/mcp-server/dist
-COPY --from=builder /build/packages/mcp-server/node_modules ./packages/mcp-server/node_modules
+# Set working directory
+WORKDIR /app
 
-# Copy node_modules from root (pnpm hoists dependencies here)
-COPY --from=builder /build/node_modules ./node_modules
+# Copy the build results, preserving directory structure
+COPY --from=builder /build .
 
-    # Copy the built wuro into node_modules
-    COPY --from=builder /build/dist ./node_modules/wuro
+# Copy the built wuro into node_modules
+COPY --from=builder /build/dist ./node_modules/wuro
 
-    # Change ownership to nodejs user
-    RUN chown -R nodejs:nodejs /app
+# Change ownership to nodejs user
+RUN chown -R nodejs:nodejs /app
 
-    # Switch to non-root user
-    USER nodejs
+# Switch to non-root user
+USER nodejs
 
-    # The MCP server uses stdio transport by default
-    # No exposed ports needed for stdio communication
+# The MCP server uses stdio transport by default
+# No exposed ports needed for stdio communication
 
-    # Set the entrypoint to the MCP server
-    ENTRYPOINT ["node", "packages/mcp-server/dist/index.js"]
+# Set the entrypoint to the MCP server
+ENTRYPOINT ["node", "packages/mcp-server/dist/index.js"]
 
-    # Allow passing arguments to the MCP server
-    CMD []
+# Allow passing arguments to the MCP server
+CMD []

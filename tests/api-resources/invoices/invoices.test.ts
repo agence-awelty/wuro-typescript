@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource invoices', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.invoices.create({});
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.invoices.retrieve('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -33,7 +33,7 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -41,7 +41,7 @@ describe('resource invoices', () => {
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.invoices.update('uid', {});
     const rawResponse = await responsePromise.asResponse();
@@ -53,7 +53,7 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.invoices.list();
     const rawResponse = await responsePromise.asResponse();
@@ -65,7 +65,7 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -87,7 +87,7 @@ describe('resource invoices', () => {
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.invoices.delete('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -99,7 +99,7 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createCredit', async () => {
     const responsePromise = client.invoices.createCredit('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -111,7 +111,7 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createDeliveryReceipt', async () => {
     const responsePromise = client.invoices.createDeliveryReceipt('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -123,7 +123,7 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createPackage: only required params', async () => {
     const responsePromise = client.invoices.createPackage({ invoicesId: ['string'] });
     const rawResponse = await responsePromise.asResponse();
@@ -135,12 +135,12 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createPackage: required and optional params', async () => {
     const response = await client.invoices.createPackage({ invoicesId: ['string'], DEFERRED: true });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getLogs', async () => {
     const responsePromise = client.invoices.getLogs();
     const rawResponse = await responsePromise.asResponse();
@@ -152,18 +152,22 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getLogs: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.invoices.getLogs(
-        { invoice: 'invoice', limit: 0, skip: 0 },
+        {
+          invoice: 'invoice',
+          limit: 0,
+          skip: 0,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getStats', async () => {
     const responsePromise = client.invoices.getStats();
     const rawResponse = await responsePromise.asResponse();
@@ -175,18 +179,22 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getStats: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.invoices.getStats(
-        { maxDate: '2019-12-27T18:11:19.117Z', minDate: '2019-12-27T18:11:19.117Z', state: 'state' },
+        {
+          maxDate: '2019-12-27T18:11:19.117Z',
+          minDate: '2019-12-27T18:11:19.117Z',
+          state: 'state',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getTurnover', async () => {
     const responsePromise = client.invoices.getTurnover();
     const rawResponse = await responsePromise.asResponse();
@@ -198,7 +206,7 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getTurnover: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -209,7 +217,7 @@ describe('resource invoices', () => {
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listPayments', async () => {
     const responsePromise = client.invoices.listPayments();
     const rawResponse = await responsePromise.asResponse();
@@ -221,7 +229,7 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listPayments: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -238,7 +246,7 @@ describe('resource invoices', () => {
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listWaitingPayments', async () => {
     const responsePromise = client.invoices.listWaitingPayments();
     const rawResponse = await responsePromise.asResponse();
@@ -250,18 +258,22 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listWaitingPayments: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.invoices.listWaitingPayments(
-        { limit: 0, skip: 0, state: ['waiting'] },
+        {
+          limit: 0,
+          skip: 0,
+          state: ['waiting'],
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('recordPayment: only required params', async () => {
     const responsePromise = client.invoices.recordPayment('uid', { amount: 0, mode: 'mode' });
     const rawResponse = await responsePromise.asResponse();
@@ -273,12 +285,12 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('recordPayment: required and optional params', async () => {
     const response = await client.invoices.recordPayment('uid', { amount: 0, mode: 'mode' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveLogs', async () => {
     const responsePromise = client.invoices.retrieveLogs('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -290,7 +302,7 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('sendEmail', async () => {
     const responsePromise = client.invoices.sendEmail('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -302,7 +314,7 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('sendEmail: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(

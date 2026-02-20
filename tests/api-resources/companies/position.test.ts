@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource position', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.companies.position.create('uid', { type: 'type', user: 'user' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,16 +21,22 @@ describe('resource position', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.companies.position.create('uid', {
       type: 'type',
       user: 'user',
-      rights: [{ checked: true, group: 'group', name: 'name' }],
+      rights: [
+        {
+          checked: true,
+          group: 'group',
+          name: 'name',
+        },
+      ],
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.companies.position.update('uid', { company: 'company' });
     const rawResponse = await responsePromise.asResponse();
@@ -42,11 +48,17 @@ describe('resource position', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.companies.position.update('uid', {
       company: 'company',
-      rights: [{ checked: true, group: 'group', name: 'name' }],
+      rights: [
+        {
+          checked: true,
+          group: 'group',
+          name: 'name',
+        },
+      ],
       state: 'active',
       type: 'type',
     });

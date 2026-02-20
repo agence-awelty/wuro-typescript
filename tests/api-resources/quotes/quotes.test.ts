@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource quotes', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.quotes.create({});
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.quotes.retrieve('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -33,7 +33,7 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -41,7 +41,7 @@ describe('resource quotes', () => {
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.quotes.update('uid', {});
     const rawResponse = await responsePromise.asResponse();
@@ -53,7 +53,7 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.quotes.list();
     const rawResponse = await responsePromise.asResponse();
@@ -65,7 +65,7 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -85,7 +85,7 @@ describe('resource quotes', () => {
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.quotes.delete('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -97,7 +97,7 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createAdvanceInvoice', async () => {
     const responsePromise = client.quotes.createAdvanceInvoice('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -109,7 +109,7 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createAdvanceInvoice: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -121,7 +121,7 @@ describe('resource quotes', () => {
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createDeliveryReceipt', async () => {
     const responsePromise = client.quotes.createDeliveryReceipt('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -133,7 +133,7 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createInvoice', async () => {
     const responsePromise = client.quotes.createInvoice('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -145,7 +145,7 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createInvoiceFromQuote', async () => {
     const responsePromise = client.quotes.createInvoiceFromQuote('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -157,7 +157,7 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createPackage: only required params', async () => {
     const responsePromise = client.quotes.createPackage({ quotesId: ['string'] });
     const rawResponse = await responsePromise.asResponse();
@@ -169,12 +169,12 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createPackage: required and optional params', async () => {
     const response = await client.quotes.createPackage({ quotesId: ['string'], DEFERRED: true });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createProformaInvoice', async () => {
     const responsePromise = client.quotes.createProformaInvoice('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -186,7 +186,7 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createPurchaseOrder', async () => {
     const responsePromise = client.quotes.createPurchaseOrder('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -198,7 +198,7 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('generateHTML', async () => {
     const responsePromise = client.quotes.generateHTML('uid');
     const rawResponse = await responsePromise.asResponse();
@@ -210,7 +210,7 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getLogs', async () => {
     const responsePromise = client.quotes.getLogs();
     const rawResponse = await responsePromise.asResponse();
@@ -222,7 +222,7 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getLogs: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -230,7 +230,7 @@ describe('resource quotes', () => {
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getStats', async () => {
     const responsePromise = client.quotes.getStats();
     const rawResponse = await responsePromise.asResponse();
@@ -242,18 +242,22 @@ describe('resource quotes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getStats: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.quotes.getStats(
-        { maxDate: '2019-12-27T18:11:19.117Z', minDate: '2019-12-27T18:11:19.117Z', state: 'state' },
+        {
+          maxDate: '2019-12-27T18:11:19.117Z',
+          minDate: '2019-12-27T18:11:19.117Z',
+          state: 'state',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Wuro.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveLogs', async () => {
     const responsePromise = client.quotes.retrieveLogs('uid');
     const rawResponse = await responsePromise.asResponse();

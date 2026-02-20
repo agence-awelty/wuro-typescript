@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource variant', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.products.variant.create('uid', {});
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource variant', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.products.variant.retrieve('uid', { productId: 'productId' });
     const rawResponse = await responsePromise.asResponse();
@@ -33,12 +33,12 @@ describe('resource variant', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.products.variant.retrieve('uid', { productId: 'productId' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.products.variant.update('uid', { productId: 'productId' });
     const rawResponse = await responsePromise.asResponse();
@@ -50,7 +50,7 @@ describe('resource variant', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.products.variant.update('uid', {
       productId: 'productId',
@@ -60,12 +60,16 @@ describe('resource variant', () => {
       price_ht: 0,
       reference: 'reference',
       sku: 'sku',
-      stock: { nb_alert: 0, nb_min: 0, nb_stock: 0 },
+      stock: {
+        nb_alert: 0,
+        nb_min: 0,
+        nb_stock: 0,
+      },
       tva_rate: 0,
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.products.variant.list();
     const rawResponse = await responsePromise.asResponse();
@@ -77,7 +81,7 @@ describe('resource variant', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.products.variant.delete('uid', { productId: 'productId' });
     const rawResponse = await responsePromise.asResponse();
@@ -89,7 +93,7 @@ describe('resource variant', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.products.variant.delete('uid', { productId: 'productId' });
   });

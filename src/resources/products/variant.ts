@@ -174,42 +174,42 @@ export interface VariantUpdateParams {
   productId: string;
 
   /**
-   * Body param:
+   * Body param
    */
   buying_price?: number;
 
   /**
-   * Body param:
+   * Body param
    */
   name?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   options?: unknown;
 
   /**
-   * Body param:
+   * Body param
    */
   price_ht?: number;
 
   /**
-   * Body param:
+   * Body param
    */
   reference?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   sku?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   stock?: VariantUpdateParams.Stock;
 
   /**
-   * Body param:
+   * Body param
    */
   tva_rate?: number;
 }

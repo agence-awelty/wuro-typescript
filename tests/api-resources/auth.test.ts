@@ -9,7 +9,7 @@ const client = new Wuro({
 });
 
 describe('resource auth', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('login: only required params', async () => {
     const responsePromise = client.auth.login({ api_key: 'api_key', private_key: 'private_key' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource auth', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('login: required and optional params', async () => {
     const response = await client.auth.login({ api_key: 'api_key', private_key: 'private_key' });
   });
